@@ -149,6 +149,8 @@ Route::namespace('App\Http\Controllers')->group(function (){
             Route::get('detail/{id}', 'pengajuanController@detail')->name('detail');
             Route::get('edit/{id}', 'pengajuanController@edit')->name('edit');
             Route::post('update', 'pengajuanController@update')->name('update');
+            Route::post('approve', 'pengajuanController@approve')->name('approve');
+            Route::post('disapprove', 'pengajuanController@disapprove')->name('disapprove');
             Route::post('delete', 'pengajuanController@delete')->name('delete');
             Route::post('getMonth', 'pengajuanController@getMonth')->name('getMonth');
             Route::post('export', 'pengajuanController@export')->name('export');

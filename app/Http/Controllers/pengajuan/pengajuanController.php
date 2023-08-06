@@ -9,16 +9,26 @@ use Illuminate\Http\Request;
 
 class pengajuanController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $data['title'] = "Daftar Pengajuan";
         // dd($data);
-        if(Auth::user('admin')){
+        if (Auth::user('admin')) {
             $data['pengajuan'] = pengajuan::get();
-        }else{
-            $data['pengajuan'] = pengajuan::where('pemohon_id',Auth::user()->id)->get();
+        } else {
+            $data['pengajuan'] = pengajuan::where('pemohon_id', Auth::user()->id)->get();
         }
+
         // dd(Auth::user()->id);
-        return view('pengajuan.index',$data);
+        return view('pengajuan.index', $data);
+    }
+
+    public function countDate($id){
+        $data = pengajuan::where('id', $id)->first();
+        $diff = date_diff($data->dari,$data->sampai);
+
+        // return
+
     }
 
     public function create()
@@ -40,32 +50,46 @@ class pengajuanController extends Controller
         // if($exec || $exec_3){
         //     return back()->with(['gagal' => 'Your Email, pengajuanname or Phone Already Exist!']);
         // }else{
-            // if($request->password == $request->repassword){
-                date_default_timezone_set("Asia/Bangkok");
-                $datenow = date('Y-m-d H:i:s');
-                $sample = pengajuan::create([
-                    'dari' => $request->dari,
-                    'sampai' => $request->sampai,
-                    'tgl_dibuat'=>$datenow,
-                    'keterangan' => $request->keterangan,
-                    'pemohon_id' => Auth::user()->id,
-                    'created_at' => $datenow
-                ]);
-                if(Auth::user('admin')){
-                    return redirect()->route('admin.pengajuan.index')->with(['success' => 'Data successfully stored!']);
-                }else{
-                    return redirect()->route('user.pengajuan.index')->with(['success' => 'Data successfully stored!']);
-                }
-            // }else{
-            //     return back()->with(['gagal' => 'Password Not Match!']);
-            // }
+        // if($request->password == $request->repassword){
+        date_default_timezone_set("Asia/Bangkok");
+        $datenow = date('Y-m-d H:i:s');
+        // dd(isWeekend());
+        // dd(date('N', strtotime($datenow)) >= 6);
+        // isWeekend($datenow);
+        $sample = pengajuan::create([
+            // 'dari' => $request->from,
+            // 'sampai' => $request->to,
+            'tgl_cuti' => $request->from,
+            'keterangan' => $request->keterangan,
+            'status' => 0,
+            'tgl_dibuat' => $datenow,
+            'pemohon_id' => Auth::user()->id,
+            'created_at' => $datenow
+        ]);
+        if (Auth::user('admin')) {
+            return redirect()->route('admin.pengajuan.index')->with(['success' => 'Data successfully stored!']);
+        } else {
+            return redirect()->route('user.pengajuan.index')->with(['success' => 'Data successfully stored!']);
+        }
+        // }else{
+        //     return back()->with(['gagal' => 'Password Not Match!']);
+        // }
 
         // }
     }
 
-    public function approve($id){
-        pengajuan::where('id',$id)->update([
+    public function approve($id)
+    {
+        pengajuan::where('id', $id)->update([
             'status' => 1,
+            'penyetuju_id' => Auth::user()->id
+        ]);
+    }
+
+    public function disapprove($id)
+    {
+        pengajuan::where('id', $id)->update([
+            'status' => 2,
             'penyetuju_id' => Auth::user()->id
         ]);
     }
@@ -76,8 +100,8 @@ class pengajuanController extends Controller
         $data['title'] = "Detail User";
         $data['disabled_'] = 'disabled';
         $data['url'] = 'create';
-        // $data['pengajuan'] = User::where('id', $id)->first();
-        $data['roles'] = Role::all();
+        $data['users'] = pengajuan::where('id', $id)->first();
+        // $data['roles'] = Role::all();
         return view('pengajuan.create', $data);
     }
 
@@ -87,8 +111,8 @@ class pengajuanController extends Controller
         $data['title'] = "Edit User";
         $data['disabled_'] = '';
         $data['url'] = 'update';
-        // $data['pengajuan'] = User::where('id', $id)->first();
-        $data['roles'] = Role::all();
+        $data['users'] = pengajuan::where('id', $id)->first();
+        // $data['roles'] = Role::all();
         return view('pengajuan.create', $data);
     }
 
@@ -98,47 +122,28 @@ class pengajuanController extends Controller
         date_default_timezone_set("Asia/Bangkok");
         $datenow = date('Y-m-d H:i:s');
 
-        if($req->password && $req->repassword){
-            if($req->password == $req->repassword){
-                $user_pay = User::where('id', $req->id)->update([
-                    'email' => $req->email,
-                    'telpon' => $req->phone,
-                    'password' => bcrypt($req->password),
-                    'nama' => $req->name,
-                    'role_id' => $req->role,
-                    'alamat' => $req->address,
-                    'updated_at' => $datenow
-                ]);
-                return redirect()->route('admin.dashboard.index')->with(['success' => 'Data successfully updated!']);
-            }else{
-                return back()->with(['gagal' => 'Password Not Match!']);
-            }
-        }else{
-            $user_pay = User::where('id', $req->id)->update([
-                'email' => $req->email,
-                'telpon' => $req->phone,
-                'nama' => $req->name,
-                'role_id' => $req->role,
-                'alamat' => $req->address,
-                'updated_at' => $datenow
-            ]);
-            return redirect()->route('admin.dashboard.index')->with(['success' => 'Data successfully updated!']);
-        }
+        $user_pay = pengajuan::where('id', $req->id)->update([
+            'dari' => $req->from,
+            'sampai' => $req->to,
+            'keterangan' => $req->keterangan,
+        ]);
+        return redirect()->route('admin.dashboard.index')->with(['success' => 'Data successfully updated!']);
+        // }
     }
 
     // Delete Data Function
     public function delete(Request $req)
     {
         $datenow = date('Y-m-d H:i:s');
-        $exec = User::where('id', $req->id )->update([
-            'updated_at'=> $datenow,
-            'is_deleted'=> 1
+        $exec = pengajuan::where('id', $req->id)->update([
+            // 'updated_at' => $datenow,
+            'deleted_at' => $datenow
         ]);
 
         if ($exec) {
             Session::flash('success', 'Data successfully deleted!');
-          } else {
+        } else {
             Session::flash('gagal', 'Error Data');
-          }
+        }
     }
 }

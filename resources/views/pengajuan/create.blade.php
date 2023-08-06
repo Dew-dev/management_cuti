@@ -19,15 +19,15 @@
                     <section class="content container-fluid">
                         <div class="box box-primary">
                             <div class="box-body">
-                                <form id="form_add" action="{{ route('admin.pengajuan.' . $url) }}" method="post" enctype="multipart/form-data" >
+                                <form id="form_add" action="{{ route('user.pengajuan.' . $url) }}" method="post" enctype="multipart/form-data" >
                                     {{ csrf_field() }}
                                     <br>
                                     <div class="row">
                                         <div class="col-md-1"></div>
                                         <div class="col-md-11">
-                                            <label class="col-md-6">Dari <span style="color: red;">*</span></label>
+                                            <label class="col-md-6">Tanggal Cuti <span style="color: red;">*</span></label>
                                             <div class="col-md-12">
-                                                <input type="text" name="from" id="from" class="form-control"  step="1" @if (isset($users)) value="{{ $users->nama }}" @endisset autocomplete="off" required {{ $disabled_ }} style="width:100%;">
+                                                <input type="text" name="from" id="from" class="form-control"  step="1" @if (isset($users)) value="{{ $users->tgl_cuti }}" @endisset autocomplete="off" required {{ $disabled_ }} style="width:100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -35,27 +35,18 @@
                                     <div class="row">
                                         <div class="col-md-1"></div>
                                         <div class="col-md-11">
-                                            <label class="col-md-6">Sampai <span style="color: red;">*</span></label>
+                                            <label class="col-md-6">Keterangan <span style="color: red;">*</span></label>
                                             <div class="col-md-12">
-                                                <input type="text" name="to" id="to" class="form-control"  step="1" @if (isset($users)) value="{{ $users->nip }}" @endisset autocomplete="off" required {{ $disabled_ }} style="width:100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-1"></div>
-                                        <div class="col-md-11">
-                                            <label class="col-md-6">Address <span style="color: red;">*</span></label>
-                                            <div class="col-md-12">
-                                                <textarea class="form-control" name="address" id="address" rows="5" cols="10"  autocomplete="off" required {{ $disabled_ }} style="width:100%">@if (isset($users)) {{ $users->alamat }} @endisset</textarea>
+                                                <textarea class="form-control" name="keterangan" id="keterangan" rows="5" cols="10"  autocomplete="off" required {{ $disabled_ }} style="width:100%">@if (isset($users)) {{ $users->keterangan }} @endisset</textarea>
                                             </div>
                                         </div>
                                     </div>
                                     <br>
                                     <div class="modal-footer">
                                         <div style="float:right;">
-                                            @if ($title == 'Add User')
+                                            @if ($title == 'Add Pengajuan')
                                                 <div class="col-md-10" style="margin-right: 20px;">
-                                                    <a href="{{ route('admin.dashboard.index')}}" type="button" class="btn btn-danger">
+                                                    <a href="{{ route('user.pengajuan.index')}}" type="button" class="btn btn-danger">
                                                         <i class="fa fa-arrow-left"></i>&nbsp;
                                                         Back
                                                     </a>
@@ -64,9 +55,9 @@
                                                         Save
                                                     </button>
                                                 </div>
-                                            @elseif ($title == 'Edit User')
+                                            @elseif ($title == 'Edit Pengajuan')
                                                 <div class="col-md-10" style="margin-right: 20px;">
-                                                    <a href="{{ route('admin.dashboard.index')}}" type="button" class="btn btn-danger">
+                                                    <a href="{{ route('user.pengajuan.index')}}" type="button" class="btn btn-danger">
                                                         <i class="fa fa-arrow-left"></i>&nbsp;
                                                         Back
                                                     </a>
@@ -77,7 +68,7 @@
                                                 </div>
                                             @else
                                                 <div class="col-md-10" style="margin-right: 20px;">
-                                                    <a href="{{ route('admin.dashboard.index')}}" type="button" class="btn btn-danger">
+                                                    <a href="{{ route('user.pengajuan.index')}}" type="button" class="btn btn-danger">
                                                         <i class="fa fa-arrow-left"></i>&nbsp;
                                                         Back
                                                     </a>
@@ -99,37 +90,20 @@
 </html>
 
 <script>
-    const date = new Date();
-    $( function() {
-      var dateFormat = "mm/dd/yy",
-        from = $( "#from" )
-          .datepicker({
-            defaultDate: date,
-            minDate: +7 ,
-            changeMonth: true,
-            numberOfMonths: 3
-          })
-          .on( "change", function() {
-            to.datepicker( "option", "minDate", getDate( this ) );
-          }),
-        to = $( "#to" ).datepicker({
-          defaultDate: "+1w",
-          changeMonth: true,
-          numberOfMonths: 3
-        })
-        .on( "change", function() {
-          from.datepicker( "option", "maxDate", getDate( this ) );
-        });
 
-      function getDate( element ) {
-        var date;
-        try {
-          date = $.datepicker.parseDate( dateFormat, element.value );
-        } catch( error ) {
-          date = null;
+  $(document).ready(function () {
+
+    $.get("https://api-harilibur.vercel.app/api", function(data){
+        console.log(data);
+        var arr = [];
+        for(let i = 0; i<data.length; i++ ){
+            // let date = new Date(data[i]['holiday_date'])
         }
 
-        return date;
-      }
-    } );
-    </script>
+    })
+
+    $('#from').multiDatesPicker({
+        dateFormat: "dd-mm-yy"
+    });
+  });
+</script>
