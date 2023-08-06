@@ -16,7 +16,7 @@
                         </div>
                     </div>
                 </div>
-                @if (!Auth::guard('admin')->check())
+                @if (!Auth::guard('admin')->check() && !Auth::guard('lead')->check())
                 <div class="page-inner mt--5">
                     <!-- Button -->
                     <div class="d-flex">

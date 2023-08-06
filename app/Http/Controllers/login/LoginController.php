@@ -21,11 +21,14 @@ class LoginController extends Controller
         // dd(Auth::user());
         if (Auth::check()) { }
         // dd(Auth::guard('user')->check(), Auth::guard('admin')->check());
+        // dd(Auth::guard('lead')->attempt(['email' => $request->email, 'password' => $request->password, 'role_id' => 3]));
         if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password, 'role_id' => 1])) {
             return redirect()->route('admin.pengajuan.index');
-        } else if (Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password])) {
+        } else if (Auth::guard('lead')->attempt(['email' => $request->email, 'password' => $request->password, 'role_id' => 3])) {
+            return redirect()->route('lead.pengajuan.index');
+        } else if (Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password, 'role_id' => 2])) {
             return redirect()->route('user.pengajuan.index');
-        } else {
+        }else {
             // Session::flash('loginError', 'Login Failed!');
             return redirect()->back()->with(['gagal' => 'These credentials do not match our records.']);
         }
@@ -36,6 +39,8 @@ class LoginController extends Controller
             Auth::guard('user')->logout();
         } elseif (Auth::guard('admin')->check()) {
             Auth::guard('admin')->logout();
+        } elseif (Auth::guard('lead')->check()) {
+            Auth::guard('lead')->logout();
         } elseif (Auth::guard('web')->check()) {
             Auth::guard('web')->logout();
         }

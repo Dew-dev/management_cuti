@@ -60,7 +60,7 @@
                 <li class="nav-item ">
                     <a href="{{route('admin.pengajuan.index')}}" aria-expanded="false">
                         <i class="fas fa-clipboard-list"></i>
-                        <p>Daftar Pengajuan</p>
+                        <p>Daftar Pengajuan Cuti</p>
                     </a>
                 </li>
                 <li class="nav-item ">
@@ -69,23 +69,18 @@
                         <p>User</p>
                     </a>
                 </li>
+            @elseif(Auth::guard('lead')->check())
+            <li class="nav-item ">
+                <a href="{{route('lead.pengajuan.index')}}" aria-expanded="false">
+                    <i class="fas fa-clipboard-list"></i>
+                    <p>Daftar Pengajuan Cuti</p>
+                </a>
+            </li>
             @else
-                {{-- <li class="nav-item ">
-                    <a href="{{route('user.dashboard.index')}}" aria-expanded="false">
-                        <i class="fas fa-home"></i>
-                        <p>Dashboard</p>
-                    </a>
-                </li> --}}
                 <li class="nav-item ">
                     <a href="{{route('user.pengajuan.index')}}" aria-expanded="false">
                         <i class="fas fa-clipboard-list"></i>
                         <p>Pengajuan Cuti</p>
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a href="{{route('user.product.index')}}" class="collapsed" aria-expanded="false">
-                        <i class="fas fa-boxes"></i>
-                        <p>Product</p>
                     </a>
                 </li>
             @endif
