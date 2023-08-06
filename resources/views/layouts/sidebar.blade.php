@@ -1,10 +1,10 @@
 <div class="main-header">
     <!-- Logo Header -->
     <div class="logo-header" data-background-color="blue">
-        <a href="/" class="logo mt-2">
+        <a href="{{ url('/') }}" class="logo mt-2">
             <span style="display:flex;">
-                <img src="{{ asset('img/fru-white.png') }}" width="50" alt="navbar brand" class="navbar-brand">
-                <h1 class="text-light ml-1" style="margin:auto;">fru.id</h2>
+                <img src="{{ asset('img/logo_new.png') }}" width="50" alt="navbar brand" class="navbar-brand">
+                <h5 class="text-light ml-1" style="margin:auto;">Manajemen Cuti</h5>
             </span>
         </a>
         <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse"
@@ -40,7 +40,7 @@
                             <li>
                                 <form action="{{url('/auth/logout')}}" method="post">
                                     @csrf
-                                    <button class="dropdown-item">Logout</button>
+                                    <button class="dropdown-item">Log Out</button>
                                 </form>
                             </li>
                         </div>
@@ -55,36 +55,18 @@
 <div class="sidebar sidebar-style-2">
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
-            <div class="user">
-                <div class="avatar-sm float-left mr-2">
-                @if(Auth::guard('admin')->check())
-                    <img src="{{ asset('img/admin.png') }}" alt="..." class="avatar-img rounded-circle">
-                @else
-                    <img src="{{ asset('img/user.png') }}" alt="..." class="avatar-img rounded-circle">
-                @endif
-                </div>
-                <div class="info">
-                    <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
-                        <span>
-                            {{Auth::user()->name}}
-                            <span class="user-level">{{Auth::user()->role->nama}}</span>
-                        </span>
-                    </a>
-
-                </div>
-            </div>
             <ul class="nav nav-primary">
             @if(Auth::guard('admin')->check())
+                <li class="nav-item ">
+                    <a href="{{route('admin.pengajuan.index')}}" aria-expanded="false">
+                        <i class="fas fa-clipboard-list"></i>
+                        <p>Daftar Pengajuan</p>
+                    </a>
+                </li>
                 <li class="nav-item ">
                     <a href="{{route('admin.dashboard.index')}}" aria-expanded="false">
                         <i class="fas fa-user"></i>
                         <p>User</p>
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a href="{{route('admin.pengajuan.index')}}" aria-expanded="false">
-                        <i class="fas fa-clipboard-list"></i>
-                        <p>Pengajuan</p>
                     </a>
                 </li>
             @else
@@ -95,9 +77,9 @@
                     </a>
                 </li> --}}
                 <li class="nav-item ">
-                    <a href="{{route('user.order.index')}}" aria-expanded="false">
+                    <a href="{{route('user.pengajuan.index')}}" aria-expanded="false">
                         <i class="fas fa-clipboard-list"></i>
-                        <p>Order</p>
+                        <p>Pengajuan Cuti</p>
                     </a>
                 </li>
                 <li class="nav-item ">

@@ -4,10 +4,10 @@
  <meta charset="UTF-8">
  <meta http-equiv="X-UA-Compatible" content="IE=edge">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>FRU.ID - Forgot</title>
+ <title>Manajemen Cuti - Forgot</title>
  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
   <link rel="stylesheet" href="{{ asset('login/login.css') }}">
-  <link rel="icon" href="{{ asset('img/fru.png') }}" type="image/x-icon" />
+  <link rel="icon" href="{{ asset('img/logo_new.png') }}" type="image/x-icon" />
   <style>
     .input-icon{
     margin-bottom:20px;
@@ -15,7 +15,7 @@
   </style>
 </head>
 <body>
- 
+
  <div class="halaman">
   <div class="hal-login">
    <div class="container">
@@ -25,8 +25,8 @@
   @error('email')
       <div class="invalid-feedback " style="color:red;">
         {{ $message }}
-        </div>     
-        <br>    
+        </div>
+        <br>
     @enderror
     @if (session()->has('loginError'))
       <div class="alert alert-danger alert-dismissible fade show " role="alert" style="color:red;">
@@ -34,7 +34,6 @@
       </div>
       <br>
    @else
-    <p>Please Check Your Email Account and Setting Up Your New Password</p>
   @endif
 
    </div>
@@ -57,7 +56,7 @@
         <i class="uil uil-keyhole-circle"></i>
     </div>
    </div>
-   
+
    <br>
    <div class="button">
     <button type="submit">Change Password</button>

@@ -22,7 +22,7 @@ class LoginController extends Controller
         if (Auth::check()) { }
         // dd(Auth::guard('user')->check(), Auth::guard('admin')->check());
         if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password, 'role_id' => 1])) {
-            return redirect()->route('admin.dashboard.index');
+            return redirect()->route('admin.pengajuan.index');
         } else if (Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password])) {
             return redirect()->route('user.pengajuan.index');
         } else {

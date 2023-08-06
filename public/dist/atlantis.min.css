@@ -2356,7 +2356,7 @@ body {
 }
 
 .logo-header[data-background-color=blue] {
-    background: #1572e8 !important
+    background: #0b7745 !important
 }
 
 .logo-header[data-background-color=blue2] {
@@ -2368,7 +2368,7 @@ body {
 }
 
 .navbar-header[data-background-color=blue2] {
-    background: #1269db !important
+    background: #0E854D !important
 }
 
 .logo-header[data-background-color=purple] {
@@ -7453,15 +7453,15 @@ label.error {
 }
 
 .btn-primary {
-    background: #1572e8 !important;
-    border-color: #1572e8 !important
+    background: #F9A51A !important;
+    border-color: #F9A51A !important
 }
 
 .btn-primary:disabled,
 .btn-primary:focus,
 .btn-primary:hover {
-    background: #1572e8 !important;
-    border-color: #1572e8 !important
+    background: #F9A51A !important;
+    border-color: #F9A51A !important
 }
 
 .btn-secondary {
@@ -14137,9 +14137,8 @@ body[data-background-color=dark] .board {
 }
 
 .bg-primary-gradient {
-    background: #1572e8 !important;
-    background: -webkit-linear-gradient(legacy-direction(-45deg), #06418e, #1572e8) !important;
-    background: linear-gradient(-45deg, #06418e, #1572e8) !important
+    background: linear-gradient(-45deg, #0b7745 , #0b7745 ) !important;
+    border-bottom-left-radius: 55px;
 }
 
 .bg-secondary-gradient {

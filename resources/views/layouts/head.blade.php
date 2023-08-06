@@ -1,11 +1,11 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>FRU.ID - </title>
+    <title>Manajemen Cuti</title>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-    <link rel="icon" href="{{ asset('img/fru.png') }}" type="image/x-icon" />
+    <link rel="icon" href="{{ asset('img/logo_new.png') }}" type="image/x-icon" />
     <!-- Fonts and icons -->
     <script src="{{ asset('js/plugin/webfont/webfont.min.js') }}"></script>
     <script>

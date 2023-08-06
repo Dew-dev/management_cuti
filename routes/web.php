@@ -17,7 +17,15 @@ use Illuminate\Support\Facades\Route;
 // ALL CONTROLLERS
 
 Route::get('/', function () {
-    return view('auth.login');
+    if(Auth::guard('admin')->check()){
+    	return redirect()->route('admin.pengajuan.index');
+    } else {
+        if(Auth::guard('user')->check()){
+            return redirect()->route('user.pengajuan.index');
+        } else {
+            return redirect()->route('login.index');
+        }
+    }
 });
 
 Route::namespace('App\Http\Controllers')->group(function (){

@@ -7,7 +7,7 @@ html{
     width: 100%;
     height: 100%;
     font-family: 'Poppins', sans-serif;
-    background-image: url(../img/bg-login.jpg) ;
+    background-image: url(../img/bg_new.png) ;
     background-size:cover;
    }
 
@@ -22,7 +22,7 @@ html{
    .gambar{
     width: 50%;
     display: flex;
-    border: 0 solid #e5e7eb;;
+    border: 0 solid #e5e7eb;
     justify-content: center;
     align-items: center;
     /* background-color: #232130; */
@@ -34,43 +34,45 @@ html{
     position: absolute;
     right: 0;
     flex-direction: column;
-    background-color: #261d5a;
+    background-color: #115d31;
    }
    .container{
     width: 70%;
     height: 100%;
-    background-color: #261d5a;
+    background-color: #115d31;
     position: absolute;
     margin:auto;
     left: 0;
     right: 0;
    }
    .detail-cont{
-    width: 80%;
     padding-top: 50px;
- 
-    
    }
    .detail-cont h2{
     font-size: 30px;
     font-weight: 600px;
-    color: #d8d7df;
+    color: #FFFFFF;
+   }
+   .detail-cont h3{
+    font-size: 20px;
+    font-weight: 600px;
+    color: #FFFFFF;
    }
    .detail-cont p{
     font-size: .875rem;
     font-weight: 500px;
-    color: #d8d7df;
+    color: #FFFFFF;
    }
    .form{
     width: 100%;
     display: flex;
     flex-direction: column;
    }
- 
+
    .input-icon {
     padding: 20px 20px;
     border-radius: 10px;
-    background-color: #1a1240;
+    background-color: #113821;
     outline: none;
     border: 1px solid rgb(44, 44, 44);
     color: white;
@@ -78,7 +80,7 @@ html{
     flex-direction: row-reverse;
    }
    .input-icon:focus-within{
-    border: 1px solid #4d94f2;
+    border: 1px solid #118d4e;
    }
    .input-icon input{
     width: 100%;
@@ -87,21 +89,21 @@ html{
     margin-left: 20px;
     font-size: 15px;
     color: white;
- 
+
    }
    .input-icon input:focus + i{
-    color: #4d94f2;
+    color: #118d4e;
    }
    .input-icon input:focus{
     outline: none;
-    
+
    }
- 
+
    input:focus{
-    border-color: #4d94f2;
+    border-color: #118d4e;
    }
    .form label{
-    font-size: 20px;
+    font-size: 14px;
     font-weight: 450px;
     color: white;
     padding: 20px 0px;
@@ -109,12 +111,12 @@ html{
    .form a{
     font-size: 15px;
     font-weight: 400px;
-    color: grey;
+    color: #FFFFFF;
     text-align: right;
     padding: 20px 0px;
     text-decoration: none;
     transition: all 0.2s;
-    
+
    }
    .form a:hover{
     color: rgb(172, 169, 169);
@@ -126,7 +128,7 @@ html{
     padding: 20px 0px ;
     font-size: 20px;
     font-weight: 600;
-    background-color: #267beb ;
+    background-color: #fba137 ;
     color: white;
     border-radius: 10px;
     outline: none;
@@ -134,7 +136,7 @@ html{
     transition: all 0.5s ;
    }
    button:hover{
-    background-color: #1d5fb4;
+    background-color: #fdaa4a;
    }
    .detail-regis{
     width: 100%;

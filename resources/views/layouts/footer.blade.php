@@ -1,24 +1,8 @@
 <footer class="footer">
     <div class="container-fluid">
-        {{-- <nav class="pull-left">
-            <ul class="nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        About us
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        Help
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        Contact us
-                    </a>
-                </li>
-            </ul>
-        </nav> --}}
+        <div class="copyright ml-auto">
+            Copyright ©2023<a class="ml-1 txt-footer" href="{{ url('/') }}">Puskesmas Mampang Prapatan</a>
+        </div>
     </div>
 </footer>
 <!--   Core JS Files   -->
