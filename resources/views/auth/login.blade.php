@@ -4,10 +4,10 @@
  <meta charset="UTF-8">
  <meta http-equiv="X-UA-Compatible" content="IE=edge">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>FRU.ID - Login</title>
+ <title>Manajemen Cuti - Login</title>
  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
   <link rel="stylesheet" href="{{ asset('login/login.css') }}">
-  <link rel="icon" href="{{ asset('img/fru.png') }}" type="image/x-icon" />
+  <link rel="icon" href="{{ asset('img/logo_new.png') }}" type="image/x-icon" />
   <style>
     .input-icon{
     margin-bottom:20px;
@@ -15,18 +15,21 @@
   </style>
 </head>
 <body>
- 
+
  <div class="halaman">
   <div class="hal-login">
    <div class="container">
    <div class="detail-cont">
-    <h2>Log in FRU.ID</h2>
+    <center>
+        <img src="{{ asset('img/logo_new.png') }}" width="35%" alt="">
+        <h3>Login Manajemen Cuti</h3>
+    </center>
 
   @error('email')
       <div class="invalid-feedback " style="color:red;">
         {{ $message }}
-        </div>     
-        <br>    
+        </div>
+        <br>
     @enderror
     @if (session()->has('loginError'))
       <div class="alert alert-danger alert-dismissible fade show " role="alert" style="color:red;">
@@ -34,8 +37,6 @@
       </div>
       <br>
    @else
-    <p>Please log in using that account has
-     registered on the website.</p>
   @endif
 
    </div>
@@ -46,7 +47,7 @@
     <div class="input-icon">
      <input type="email" name="email" id="email" placeholder="Email" class="@error('email') is-invalid" @enderror placeholder="Your Email Address" autofocus required value="{{ old('email') }}">
      <i class="uil uil-envelope-alt"></i>
-     
+
    </div>
     <label for="password">Password</label>
     <div class="input-icon">
@@ -55,7 +56,7 @@
     </div>
     <a href="{{route('forgot.index')}}" style="text-align:right;"><i>Forgot Password</i> </a>
    </div>
-   
+
    <br>
    <div class="button">
     <button type="submit">Log In</button>
