@@ -92,17 +92,21 @@
                                                     <center>{{$num=$num+1}}</center>
                                                 </td>
                                                 <td class="sorting_1">
-                                                    <center>{{$user->name}}</center>
+                                                    <center>{{$user->user->nama}}</center>
                                                 </td>
                                                 <td class="sorting_1">
-                                                    <center>{{$user->username}}</center>
+                                                    <center>{{$user->tgl_cuti}}</center>
                                                 </td>
                                                 <td class="sorting_1">
-                                                    <center>{{$user->email}}</center>
+                                                    <center>{{$user->keterangan}}</center>
                                                 </td>
+
                                                 <td class="sorting_1">
-                                                   <center>{{$user->role->role}}</center>
+                                                    <center>{{$user->status}}</center>
                                                 </td>
+                                                {{-- <td class="sorting_1">
+                                                   <center>{{$user->role()}}</center>
+                                                </td> --}}
                                                 <td>
                                                     <center>
                                                         <div class="form-button-action">
