@@ -19,13 +19,13 @@
                 </li>
             </ul>
         </nav> --}}
-        <div class="copyright ml-auto">
-            Copyright ©2022<a class="ml-1" href="#">fru.id</a>
-        </div>
     </div>
 </footer>
 <!--   Core JS Files   -->
 <script src="{{ asset('js/core/jquery.3.2.1.min.js') }}"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script src="{{ asset('js/core/popper.min.js') }}"></script>
 <script src="{{ asset('js/core/bootstrap.min.js') }}"></script>
 <!-- jQuery UI -->
@@ -55,7 +55,7 @@
 <script src="{{ asset('js/demo.js') }}"></script>
 <script src="{{url('js/plugin/inputmask/jquery.inputmask.bundle.js')}}"></script>
 
-<script type="text/javascript"> 
+<script type="text/javascript">
 
                         $('.numeric').inputmask({
                             alias:"numeric",
@@ -76,5 +76,6 @@
                             },
                             removeMaskOnSubmit:true
                         });
-                        
+
 </script>
+

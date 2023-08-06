@@ -19,15 +19,15 @@
                     <section class="content container-fluid">
                         <div class="box box-primary">
                             <div class="box-body">
-                                <form id="form_add" action="{{ route('admin.users.' . $url) }}" method="post" enctype="multipart/form-data" >
+                                <form id="form_add" action="{{ route('admin.pengajuan.' . $url) }}" method="post" enctype="multipart/form-data" >
                                     {{ csrf_field() }}
                                     <br>
                                     <div class="row">
                                         <div class="col-md-1"></div>
                                         <div class="col-md-11">
-                                            <label class="col-md-6">Name <span style="color: red;">*</span></label>
+                                            <label class="col-md-6">Dari <span style="color: red;">*</span></label>
                                             <div class="col-md-12">
-                                                <input type="text" name="name" id="name" class="form-control"  step="1" @if (isset($users)) value="{{ $users->nama }}" @endisset autocomplete="off" required {{ $disabled_ }} style="width:100%;">
+                                                <input type="text" name="from" id="from" class="form-control"  step="1" @if (isset($users)) value="{{ $users->nama }}" @endisset autocomplete="off" required {{ $disabled_ }} style="width:100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -35,68 +35,12 @@
                                     <div class="row">
                                         <div class="col-md-1"></div>
                                         <div class="col-md-11">
-                                            <label class="col-md-6">NIP <span style="color: red;">*</span></label>
+                                            <label class="col-md-6">Sampai <span style="color: red;">*</span></label>
                                             <div class="col-md-12">
-                                                <input type="text" name="nip" id="nip" class="form-control"  step="1" @if (isset($users)) value="{{ $users->nip }}" @endisset autocomplete="off" required {{ $disabled_ }} style="width:100%;">
+                                                <input type="text" name="to" id="to" class="form-control"  step="1" @if (isset($users)) value="{{ $users->nip }}" @endisset autocomplete="off" required {{ $disabled_ }} style="width:100%;">
                                             </div>
                                         </div>
                                     </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-1"></div>
-                                        <div class="col-md-11">
-                                            <label class="col-md-6">Email <span style="color: red;">*</span></label>
-                                            <div class="col-md-12">
-                                                <input type="email" name="email" id="email" class="form-control"  step="1" @if (isset($users)) value="{{ $users->email }}" @else value="{{ old('email') }}"  @endisset autocomplete="off" required {{ $disabled_ }} style="width:100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-1"></div>
-                                        <div class="col-md-11">
-                                            <label class="col-md-6">Password <span style="color: red;">*</span></label>
-                                            <div class="col-md-12">
-                                                <input type="password" name="password" id="password" class="form-control"  step="1" autocomplete="off" @if($title != "Edit User") required @endif {{ $disabled_ }} style="width:100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-1"></div>
-                                        <div class="col-md-11">
-                                            <label class="col-md-6">Re-Password <span style="color: red;">*</span></label>
-                                            <div class="col-md-12">
-                                                <input type="password" name="repassword" id="repassword" class="form-control"  step="1" autocomplete="off" @if($title != "Edit User") required @endif {{ $disabled_ }} style="width:100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-1"></div>
-                                        <div class="col-md-11">
-                                            <label class="col-md-6">Phone <span style="color: red;">*</span></label>
-                                            <div class="col-md-12">
-                                                <input type="text" name="phone" id="phone" class="form-control"  step="1" @if (isset($users)) value="{{ $users->telpon }}" @else value="{{ old('phone') }}"  @endisset autocomplete="off" required {{ $disabled_ }} style="width:100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-1"></div>
-                                        <div class="col-md-11">
-                                            <label class="col-md-6">Role <span style="color: red;">*</span></label>
-                                            <div class="col-md-12">
-                                                <select class="form-control" name="role" id="role"  @if (isset($users)) @endisset autocomplete="off" required {{ $disabled_ }}>
-                                                    <option value="" selected disabled hidden>- Select Role -</option>
-                                                    @foreach($roles as $role)
-                                                        <option  @if(isset($users)) <?php if($users->role_id == $role->id){echo 'selected';}?> @endisset value="{{$role->id}}">{{$role->nama}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
                                     <div class="row">
                                         <div class="col-md-1"></div>
                                         <div class="col-md-11">
@@ -153,3 +97,39 @@
 </body>
 @include('layouts.swal')
 </html>
+
+<script>
+    const date = new Date();
+    $( function() {
+      var dateFormat = "mm/dd/yy",
+        from = $( "#from" )
+          .datepicker({
+            defaultDate: date,
+            minDate: +7 ,
+            changeMonth: true,
+            numberOfMonths: 3
+          })
+          .on( "change", function() {
+            to.datepicker( "option", "minDate", getDate( this ) );
+          }),
+        to = $( "#to" ).datepicker({
+          defaultDate: "+1w",
+          changeMonth: true,
+          numberOfMonths: 3
+        })
+        .on( "change", function() {
+          from.datepicker( "option", "maxDate", getDate( this ) );
+        });
+
+      function getDate( element ) {
+        var date;
+        try {
+          date = $.datepicker.parseDate( dateFormat, element.value );
+        } catch( error ) {
+          date = null;
+        }
+
+        return date;
+      }
+    } );
+    </script>

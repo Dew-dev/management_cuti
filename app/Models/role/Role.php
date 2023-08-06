@@ -9,7 +9,7 @@ class Role extends Model
 {
     protected $primaryKey = 'id';
 
-      protected $table = "users_role";
+      protected $table = "level_users";
 
       protected $guarded = [];
 

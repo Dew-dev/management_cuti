@@ -1,74 +1,73 @@
 <?php
 
-namespace App\Http\Controllers\users;
+namespace App\Http\Controllers\pengajuan;
 
 use App\Http\Controllers\Controller;
-use App\Models\users\User;
-use App\Models\role\Role;
-
+use Illuminate\Support\Facades\Auth;
+use App\Models\pengajuan\pengajuan;
 use Illuminate\Http\Request;
-use Auth;
-use Session;
-use DB;
-use PDF;
 
-class UsersControllers extends Controller
+class pengajuanController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth:admin');
+    public function index(){
+        $data['title'] = "Daftar Pengajuan";
+        // dd($data);
+        if(Auth::user('admin')){
+            $data['pengajuan'] = pengajuan::get();
+        }else{
+            $data['pengajuan'] = pengajuan::where('pemohon_id',Auth::user()->id)->get();
+        }
+        // dd(Auth::user()->id);
+        return view('pengajuan.index',$data);
     }
 
-    // Index View and Scope Data
-    public function index()
-    {
-        return view('users.index', [
-            "title" => "List User",
-            "users" => User::all()->where('is_deleted',null),
-            "roles" => Role::all()->where('is_deleted',null)
-        ]);
-    }
-
-    // Create View Data
     public function create()
     {
-        $data['title'] = "Add User";
+
+        $data['title'] = "Add Pengajuan";
         $data['url'] = 'store';
         $data['disabled_'] = '';
-        $data['roles'] = Role::whereNot('id',1)->get();
-        return view('users.create', $data);
+        // $data['roles'] = Role::whereNot('id',1)->get();
+        return view('pengajuan.create', $data);
     }
 
     // Store Function to Database
     public function store(Request $request)
     {
-        $exec = User::where('email', $request->email)->first();
-        $exec_3 = User::where('telpon', $request->phone)->first();
+        // $exec = pengajuan::where('email', $request->email)->first();
+        // $exec_3 = pengajuan::where('telpon', $request->phone)->first();
 
-        if($exec || $exec_3){
-            return back()->with(['gagal' => 'Your Email, Username or Phone Already Exist!']);
-        }else{
-            if($request->password == $request->repassword){
+        // if($exec || $exec_3){
+        //     return back()->with(['gagal' => 'Your Email, pengajuanname or Phone Already Exist!']);
+        // }else{
+            // if($request->password == $request->repassword){
                 date_default_timezone_set("Asia/Bangkok");
                 $datenow = date('Y-m-d H:i:s');
-                $sample = User::create([
-                    'email' => $request->email,
-                    'telpon' => $request->phone,
-                    'nip'=>$request->nip,
-                    'jns_klmin' => $request->jenis_kelamin,
-                    'password' => bcrypt($request->password),
-                    'nama' => $request->name,
-                    'role_id' => $request->role,
-                    'alamat' => $request->address,
+                $sample = pengajuan::create([
+                    'dari' => $request->dari,
+                    'sampai' => $request->sampai,
+                    'tgl_dibuat'=>$datenow,
+                    'keterangan' => $request->keterangan,
+                    'pemohon_id' => Auth::user()->id,
                     'created_at' => $datenow
                 ]);
-                return redirect()->route('admin.dashboard.index')->with(['success' => 'Data successfully stored!']);
-            }else{
-                return back()->with(['gagal' => 'Password Not Match!']);
-            }
+                if(Auth::user('admin')){
+                    return redirect()->route('admin.pengajuan.index')->with(['success' => 'Data successfully stored!']);
+                }else{
+                    return redirect()->route('user.pengajuan.index')->with(['success' => 'Data successfully stored!']);
+                }
+            // }else{
+            //     return back()->with(['gagal' => 'Password Not Match!']);
+            // }
 
-        }
+        // }
+    }
+
+    public function approve($id){
+        pengajuan::where('id',$id)->update([
+            'status' => 1,
+            'penyetuju_id' => Auth::user()->id
+        ]);
     }
 
     // Detail Data View by id
@@ -77,9 +76,9 @@ class UsersControllers extends Controller
         $data['title'] = "Detail User";
         $data['disabled_'] = 'disabled';
         $data['url'] = 'create';
-        $data['users'] = User::where('id', $id)->first();
+        // $data['pengajuan'] = User::where('id', $id)->first();
         $data['roles'] = Role::all();
-        return view('users.create', $data);
+        return view('pengajuan.create', $data);
     }
 
     // Edit Data View by id
@@ -88,16 +87,14 @@ class UsersControllers extends Controller
         $data['title'] = "Edit User";
         $data['disabled_'] = '';
         $data['url'] = 'update';
-        $data['users'] = User::where('id', $id)->first();
+        // $data['pengajuan'] = User::where('id', $id)->first();
         $data['roles'] = Role::all();
-        return view('users.create', $data);
+        return view('pengajuan.create', $data);
     }
 
     // Update Function to Database
     public function update(Request $req)
     {
-        $exec = User::where('email', $req->email)->first();
-        $exec_3 = User::where('telpon', $req->phone)->first();
         date_default_timezone_set("Asia/Bangkok");
         $datenow = date('Y-m-d H:i:s');
 
@@ -144,6 +141,4 @@ class UsersControllers extends Controller
             Session::flash('gagal', 'Error Data');
           }
     }
-
-
 }

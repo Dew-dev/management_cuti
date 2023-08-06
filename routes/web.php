@@ -43,6 +43,19 @@ Route::namespace('App\Http\Controllers')->group(function (){
         });
 
         // ROUTE TO ORDER CONTROLLERS
+
+        Route::namespace('pengajuan')->prefix('pengajuan')->name('pengajuan.')->group(function () {
+            Route::get('/', 'pengajuanController@index')->name('index');
+            Route::get('create', 'pengajuanController@create')->name('create');
+            Route::post('store', 'pengajuanController@store')->name('store');
+            Route::get('detail/{id}', 'pengajuanController@detail')->name('detail');
+            Route::get('edit/{id}', 'pengajuanController@edit')->name('edit');
+            Route::post('update', 'pengajuanController@update')->name('update');
+            Route::post('delete', 'pengajuanController@delete')->name('delete');
+            Route::post('getMonth', 'pengajuanController@getMonth')->name('getMonth');
+            Route::post('export', 'pengajuanController@export')->name('export');
+        });
+
         Route::namespace('order')->prefix('order')->name('order.')->group(function () {
             Route::get('/', 'OrderControllers@index')->name('index');
             Route::get('create', 'OrderControllers@create')->name('create');
@@ -122,14 +135,24 @@ Route::namespace('App\Http\Controllers')->group(function (){
             Route::post('delete', 'RoleControllers@delete')->name('delete');
         });
     });
-    
+
     Route::middleware('auth:user')->prefix('user')->name('user.')->group(function () {
 
          // ROUTE TO DASHBOARD CONTROLLERS
          Route::namespace('dashboard')->name('dashboard.')->group(function () {
             Route::get('/dashboard-user', 'DashboardControllers@index')->name('index');
         });
-
+        Route::namespace('pengajuan')->prefix('pengajuan')->name('pengajuan.')->group(function () {
+            Route::get('/', 'pengajuanController@index')->name('index');
+            Route::get('create', 'pengajuanController@create')->name('create');
+            Route::post('store', 'pengajuanController@store')->name('store');
+            Route::get('detail/{id}', 'pengajuanController@detail')->name('detail');
+            Route::get('edit/{id}', 'pengajuanController@edit')->name('edit');
+            Route::post('update', 'pengajuanController@update')->name('update');
+            Route::post('delete', 'pengajuanController@delete')->name('delete');
+            Route::post('getMonth', 'pengajuanController@getMonth')->name('getMonth');
+            Route::post('export', 'pengajuanController@export')->name('export');
+        });
         // ROUTE TO ORDER CONTROLLERS
         Route::namespace('order')->prefix('order')->name('order.')->group(function () {
             Route::get('/', 'OrderControllers@index')->name('index');

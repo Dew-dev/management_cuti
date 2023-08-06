@@ -11,19 +11,23 @@
                     <div class="page-inner py-5">
                         <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
                             <div>
-                                <h2 class="text-white pb-2 fw-bold">{{($title)}}</h2>
+                                <h2 class="text-white pb-2 fw-bold">{{$title}}</h2>
                             </div>
                         </div>
                     </div>
                 </div>
+                @if (!Auth::guard('admin')->check())
                 <div class="page-inner mt--5">
                     <!-- Button -->
                     <div class="d-flex">
-                        <a class="btn btn-primary btn-round ml-auto mb-3" href="{{ route('admin.users.create') }}">
+                        <a class="btn btn-primary btn-round ml-auto mb-3" href="{{ route('user.pengajuan.create') }}">
                             <i class="fa fa-plus"></i>
-                            Add User
+                            Add Pengajuan
                         </a>
                     </div>
+                    @else
+                    <div class="page-inner mt-2">
+                    @endif
 
                     <!-- Table -->
                     <div class="table-responsive">
@@ -52,19 +56,25 @@
                                                     rowspan="1" colspan="1"
                                                     aria-label="Position: activate to sort column ascending"
                                                     style="font-weight:900;">
-                                                    <center>Name</center>
+                                                    <center>Pemohon</center>
                                                 </th>
                                                 <th width="25%" class="sorting" tabindex="0" aria-controls="add-row"
                                                     rowspan="1" colspan="1"
                                                     aria-label="Position: activate to sort column ascending"
                                                     style="width: 15%; font-weight:900;">
-                                                    <center>Email</center>
+                                                    <center>Tanggal</center>
+                                                </th>
+                                                <th width="25%" class="sorting" tabindex="0" aria-controls="add-row"
+                                                    rowspan="1" colspan="1"
+                                                    aria-label="Position: activate to sort column ascending"
+                                                    style="width: 15%; font-weight:900;">
+                                                    <center>Keterangan</center>
                                                 </th>
                                                 <th width="25%" class="sorting" tabindex="0" aria-controls="add-row"
                                                     rowspan="1" colspan="1"
                                                     aria-label="Position: activate to sort column ascending"
                                                     style="font-weight:900;">
-                                                    <center>Role</center>
+                                                    <center>Status</center>
                                                 </th>
                                                 <th width="15%" class="sorting" tabindex="0"
                                                     aria-controls="add-row" rowspan="1" colspan="1"
@@ -76,19 +86,22 @@
                                         </thead>
                                         <tbody>
                                         <?php $num = 0; ?>
-                                        @foreach($users as $user)
+                                        @foreach($pengajuan as $user)
                                             <tr role="row" class="odd">
                                                 <td>
                                                     <center>{{$num=$num+1}}</center>
                                                 </td>
                                                 <td class="sorting_1">
-                                                    <center>{{$user->nama}}</center>
+                                                    <center>{{$user->name}}</center>
+                                                </td>
+                                                <td class="sorting_1">
+                                                    <center>{{$user->username}}</center>
                                                 </td>
                                                 <td class="sorting_1">
                                                     <center>{{$user->email}}</center>
                                                 </td>
                                                 <td class="sorting_1">
-                                                   <center>{{$user->role->nama}}</center>
+                                                   <center>{{$user->role->role}}</center>
                                                 </td>
                                                 <td>
                                                     <center>
