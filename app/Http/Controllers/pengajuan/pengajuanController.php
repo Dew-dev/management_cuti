@@ -113,6 +113,7 @@ class pengajuanController extends Controller
     // Edit Data View by id
     public function edit($id)
     {
+        $data['id'] = $id;
         $data['title'] = "Edit Pengajuan";
         $data['disabled_'] = '';
         $data['url'] = 'update';
@@ -131,6 +132,7 @@ class pengajuanController extends Controller
             'dari' => $req->tgl_cuti,
             // 'sampai' => $req->to,
             'keterangan' => $req->keterangan,
+            'updated_at' => $datenow
         ]);
 
         if (Auth::guard('admin')->check()) {
