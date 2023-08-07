@@ -102,7 +102,7 @@
                                                 </td>
 
                                                 <td class="sorting_1">
-                                                    <center>{{$user->status}}</center>
+                                                    <center>{{$user->status == 1 ? "Disetujui" : ($user->status == 0 ? "Belum Disetujui" : "Ditolak"  ) }}</center>
                                                 </td>
                                                 {{-- <td class="sorting_1">
                                                    <center>{{$user->role()}}</center>
@@ -115,19 +115,40 @@
                                                                 data-original-title="Detail" control-id="ControlID-16">
                                                                 <i class="fa fa-eye"></i>
                                                             </a>
+                                                            @if(Auth::user()->id == $user->id)
                                                             <a href="{{route('admin.users.edit', $user->id) }}" data-toggle="tooltip" title="Edit"
                                                                 class="btn btn-link btn-simple-primary btn-lg"
                                                                 data-original-title="Edit" control-id="ControlID-16">
                                                                 <i class="fa fa-edit" style="color:grey;"></i>
                                                             </a>
-                                                            @if(Auth::user()->id == $user->id && Auth::guard('admin')->check())
                                                                 <!-- Nothing to Delete -->
-                                                            @else
                                                                 <button type="submit" onclick="destroy({{$user->id}})" data-toggle="tooltip" title="Delete"
                                                                     class="btn btn-link btn-simple-danger"
                                                                     data-original-title="Delete" control-id="ControlID-17">
                                                                     <i class="fa fa-trash" style="color:red;"></i>
                                                                 </button>
+                                                                @elseif (Auth::user('admin'))
+                                                                <a href="{{route('admin.pengajuan.approve', $user->id) }}" data-toggle="tooltip" title="Edit"
+                                                                    class="btn btn-link btn-simple-primary btn-lg"
+                                                                    data-original-title="Edit" control-id="ControlID-16">
+                                                                    <i class="fa fa-edit" style="color:grey;"></i>
+                                                                </a>
+                                                                <a href="{{route('admin.pengajuan.disapprove', $user->id) }}" data-toggle="tooltip" title="Edit"
+                                                                    class="btn btn-link btn-simple-danger btn-lg"
+                                                                    data-original-title="Edit" control-id="ControlID-16">
+                                                                    <i class="fa fa-times" style="color:grey;"></i>
+                                                                </a>
+                                                                @elseif (Auth::user('lead'))
+                                                                <a href="{{route('lead.pengajuan.approve', $user->id) }}" data-toggle="tooltip" title="Edit"
+                                                                    class="btn btn-link btn-simple-primary btn-lg"
+                                                                    data-original-title="Edit" control-id="ControlID-16">
+                                                                    <i class="fa fa-edit" style="color:grey;"></i>
+                                                                </a>
+                                                                <a href="{{route('lead.pengajuan.disapprove', $user->id) }}" data-toggle="tooltip" title="disapprove"
+                                                                    class="btn btn-link btn-simple-danger btn-lg"
+                                                                    data-original-title="Edit" control-id="ControlID-16">
+                                                                    <i class="fa fa-times" style="color:red;"></i>
+                                                                </a>
                                                             @endif
                                                         </div>
                                                     </center>
@@ -168,7 +189,7 @@
           // dangerMode: true,
       }).then((willDelete) => {
           if (willDelete) {
-            $.post("{{route('admin.users.delete')}}",{ id:id,_token:token},function(data){
+            $.post("{{route('user.pengajuan.delete')}}",{ id:id,_token:token},function(data){
                 location.reload();
             })
           } else {
