@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class pengajuanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $data['title'] = "Daftar Pengajuan";
