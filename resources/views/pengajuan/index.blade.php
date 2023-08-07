@@ -110,18 +110,17 @@
                                                 <td>
                                                     <center>
                                                         <div class="form-button-action">
-                                                            <a href="{{route('admin.users.detail', $user->id) }}" data-toggle="tooltip" title="Detail"
+                                                            <a href="{{route('admin.pengajuan.detail', $user->id) }}" data-toggle="tooltip" title="Detail"
                                                                 class="btn btn-link btn-simple-primary btn-lg"
                                                                 data-original-title="Detail" control-id="ControlID-16">
                                                                 <i class="fa fa-eye"></i>
                                                             </a>
-                                                            @if(Auth::user()->id == $user->id)
-                                                            <a href="{{route('admin.users.edit', $user->id) }}" data-toggle="tooltip" title="Edit"
+                                                            @if(Auth::user()->id == $user->pemohon_id)
+                                                            <a href="{{route('user.pengajuan.edit', $user->id) }}" data-toggle="tooltip" title="Edit"
                                                                 class="btn btn-link btn-simple-primary btn-lg"
                                                                 data-original-title="Edit" control-id="ControlID-16">
                                                                 <i class="fa fa-edit" style="color:grey;"></i>
                                                             </a>
-                                                                <!-- Nothing to Delete -->
                                                                 <button type="submit" onclick="destroy({{$user->id}})" data-toggle="tooltip" title="Delete"
                                                                     class="btn btn-link btn-simple-danger"
                                                                     data-original-title="Delete" control-id="ControlID-17">
@@ -130,23 +129,23 @@
                                                                 @elseif (Auth::user('admin'))
                                                                 <a href="{{route('admin.pengajuan.approve', $user->id) }}" data-toggle="tooltip" title="Edit"
                                                                     class="btn btn-link btn-simple-primary btn-lg"
-                                                                    data-original-title="Edit" control-id="ControlID-16">
-                                                                    <i class="fa fa-edit" style="color:grey;"></i>
+                                                                    data-original-title="approve" control-id="ControlID-16">
+                                                                    <i class="fa fa-check" style="color:green;"></i>
                                                                 </a>
                                                                 <a href="{{route('admin.pengajuan.disapprove', $user->id) }}" data-toggle="tooltip" title="Edit"
                                                                     class="btn btn-link btn-simple-danger btn-lg"
-                                                                    data-original-title="Edit" control-id="ControlID-16">
-                                                                    <i class="fa fa-times" style="color:grey;"></i>
+                                                                    data-original-title="disapprove" control-id="ControlID-16">
+                                                                    <i class="fa fa-times" style="color:red;"></i>
                                                                 </a>
-                                                                @elseif (Auth::user('lead'))
+                                                                @elseif (Auth::user()->role_id ==3 )
                                                                 <a href="{{route('lead.pengajuan.approve', $user->id) }}" data-toggle="tooltip" title="Edit"
                                                                     class="btn btn-link btn-simple-primary btn-lg"
-                                                                    data-original-title="Edit" control-id="ControlID-16">
-                                                                    <i class="fa fa-edit" style="color:grey;"></i>
+                                                                    data-original-title="approve" control-id="ControlID-16">
+                                                                    <i class="fa fa-check" style="color:green;"></i>
                                                                 </a>
                                                                 <a href="{{route('lead.pengajuan.disapprove', $user->id) }}" data-toggle="tooltip" title="disapprove"
                                                                     class="btn btn-link btn-simple-danger btn-lg"
-                                                                    data-original-title="Edit" control-id="ControlID-16">
+                                                                    data-original-title="disapprove" control-id="ControlID-16">
                                                                     <i class="fa fa-times" style="color:red;"></i>
                                                                 </a>
                                                             @endif

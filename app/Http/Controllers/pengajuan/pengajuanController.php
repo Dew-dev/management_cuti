@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\pengajuan\pengajuan;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Session;
 class pengajuanController extends Controller
 {
     public function __construct()
@@ -18,10 +18,10 @@ class pengajuanController extends Controller
     {
         $data['title'] = "Daftar Pengajuan";
         // dd($data);
-        if (Auth::user('admin')) {
-            $data['pengajuan'] = pengajuan::get();
+        if (Auth::user('admin') || Auth::user('lead')) {
+            $data['pengajuan'] = pengajuan::where('deleted_at',null)->get();
         } else {
-            $data['pengajuan'] = pengajuan::where('pemohon_id', Auth::user()->id)->get();
+            $data['pengajuan'] = pengajuan::where('pemohon_id', Auth::user()->id)->where('deleted_at',null)->get();
         }
 
         // dd(Auth::user()->id);
@@ -102,7 +102,7 @@ class pengajuanController extends Controller
     // Detail Data View by id
     public function detail($id)
     {
-        $data['title'] = "Detail User";
+        $data['title'] = "Detail Pengajuan";
         $data['disabled_'] = 'disabled';
         $data['url'] = 'create';
         $data['users'] = pengajuan::where('id', $id)->first();
@@ -113,7 +113,7 @@ class pengajuanController extends Controller
     // Edit Data View by id
     public function edit($id)
     {
-        $data['title'] = "Edit User";
+        $data['title'] = "Edit Pengajuan";
         $data['disabled_'] = '';
         $data['url'] = 'update';
         $data['users'] = pengajuan::where('id', $id)->first();
@@ -128,11 +128,15 @@ class pengajuanController extends Controller
         $datenow = date('Y-m-d H:i:s');
 
         $user_pay = pengajuan::where('id', $req->id)->update([
-            'dari' => $req->from,
-            'sampai' => $req->to,
+            'dari' => $req->tgl_cuti,
+            // 'sampai' => $req->to,
             'keterangan' => $req->keterangan,
         ]);
-        return redirect()->route('admin.dashboard.index')->with(['success' => 'Data successfully updated!']);
+        if (Auth::user('admin')) {
+            return redirect()->route('admin.pengajuan.index')->with(['success' => 'Data successfully stored!']);
+        } else {
+            return redirect()->route('user.pengajuan.index')->with(['success' => 'Data successfully stored!']);
+        }
         // }
     }
 
