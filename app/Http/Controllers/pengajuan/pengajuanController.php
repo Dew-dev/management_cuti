@@ -33,6 +33,7 @@ class pengajuanController extends Controller
             };
         }
         $data['count'] = $count;
+        // dd(Auth::guard('admin') );
         if (Auth::guard('admin')->check() || Auth::guard('lead')->check()) {
             $data['pengajuan'] = pengajuan::where('deleted_at',null)->get();
         } else {
