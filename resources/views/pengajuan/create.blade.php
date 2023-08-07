@@ -24,6 +24,7 @@
                                     enctype="multipart/form-data">
                                     {{ csrf_field() }}
                                     <br>
+                                    <input type="hidden" name="id" @isset($users) value="{{$id}}" @endisset>
                                     <div class="row">
                                         <div class="col-md-1"></div>
                                         <div class="col-md-11">
@@ -91,9 +92,7 @@
     </div>
 </body>
 @include('layouts.swal')
-
 </html>
-
 <script>
     $(document).ready(function() {
 

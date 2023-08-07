@@ -18,7 +18,7 @@ class pengajuanController extends Controller
     {
         $data['title'] = "Daftar Pengajuan";
         // dd($data);
-        if (Auth::user('admin') || Auth::user('lead')) {
+        if (Auth::guard('admin')->check() || Auth::guard('lead')->check()) {
             $data['pengajuan'] = pengajuan::where('deleted_at',null)->get();
         } else {
             $data['pengajuan'] = pengajuan::where('pemohon_id', Auth::user()->id)->where('deleted_at',null)->get();
@@ -71,7 +71,7 @@ class pengajuanController extends Controller
             'pemohon_id' => Auth::user()->id,
             'created_at' => $datenow
         ]);
-        if (Auth::user('admin')) {
+        if (Auth::guard('admin')->check()) {
             return redirect()->route('admin.pengajuan.index')->with(['success' => 'Data successfully stored!']);
         } else {
             return redirect()->route('user.pengajuan.index')->with(['success' => 'Data successfully stored!']);
@@ -124,6 +124,7 @@ class pengajuanController extends Controller
     // Edit Data View by id
     public function edit($id)
     {
+        $data['id'] = $id;
         $data['title'] = "Edit Pengajuan";
         $data['disabled_'] = '';
         $data['url'] = 'update';
@@ -142,8 +143,10 @@ class pengajuanController extends Controller
             'dari' => $req->tgl_cuti,
             // 'sampai' => $req->to,
             'keterangan' => $req->keterangan,
+            'updated_at' => $datenow
         ]);
-        if (Auth::user('admin')) {
+
+        if (Auth::guard('admin')->check()) {
             return redirect()->route('admin.pengajuan.index')->with(['success' => 'Data successfully stored!']);
         } else {
             return redirect()->route('user.pengajuan.index')->with(['success' => 'Data successfully stored!']);
