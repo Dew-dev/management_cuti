@@ -25,10 +25,19 @@
                             Add Pengajuan
                         </a>
                     </div>
-                    @else
-                    <div class="page-inner mt-2"> </div>
-                     @endif
-                    <h3 style="margin-left: 3%; margin-bottom:3%"> Sisa Cuti Anda Tahun Ini : {{$count}} </h3>
+                    <div class="col-md-4">
+                       @if($count == 0)
+                       <div class="col-md-10 justify-content-center" style="background-color:red;color:white;padding:10px;border-radius:15px;">
+                            <h3 style="margin-left: 3%; margin-bottom:3%"> Sisa Cuti Anda Tahun Ini : <b>{{$count}}</b> </h3>
+                        </div>
+                       @else
+                        <div class="col-md-10 justify-content-center" style="background-color:rgb(13, 156, 13);color:white;padding:10px;border-radius:15px;">
+                            <h3 style="margin-left: 3%; margin-bottom:3%"> Sisa Cuti Anda Tahun Ini : <b>{{$count}}</b> </h3>
+                        </div>
+                       @endif
+                    </div>
+                    <br>
+                    @endif
                     <!-- Table -->
                     <div class="table-responsive">
                         <div id="add-row_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
@@ -143,17 +152,17 @@
                                                                     <i class="fa fa-qrcode" style="color:blue;"></i>
                                                                 </a>
                                                                 @elseif (Auth::guard('lead')->check() )
-                                                                <a href="{{route('lead.pengajuan.approve', $user->id) }}" data-toggle="tooltip" title="Edit"
+                                                                <a href="{{route('lead.pengajuan.approve', $user->id) }}" data-toggle="tooltip" title="Approve"
                                                                     class="btn btn-link btn-simple-primary btn-lg"
                                                                     data-original-title="approve" control-id="ControlID-16">
                                                                     <i class="fa fa-check" style="color:green;"></i>
                                                                 </a>
-                                                                <a href="{{route('lead.pengajuan.disapprove', $user->id) }}" data-toggle="tooltip" title="disapprove"
+                                                                <a href="{{route('lead.pengajuan.disapprove', $user->id) }}" data-toggle="tooltip" title="Disapprove"
                                                                     class="btn btn-link btn-simple-danger btn-lg"
-                                                                    data-original-title="disapprove" control-id="ControlID-16">
+                                                                    data-original-title="Disapprove" control-id="ControlID-16">
                                                                     <i class="fa fa-times" style="color:red;"></i>
                                                                 </a>
-                                                                <a href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{route('lead.pengajuan.approve', $user->id) }}" data-toggle="tooltip" title="disapprove"
+                                                                <a href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{route('lead.pengajuan.approve', $user->id) }}" data-toggle="tooltip" title="Scan QR"
                                                                     class="btn btn-link btn-simple-danger btn-lg"
                                                                     data-original-title="approve via qr" control-id="ControlID-16">
                                                                     <i class="fa fa-qrcode" style="color:blue;"></i>
