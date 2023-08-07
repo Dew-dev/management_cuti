@@ -42,7 +42,7 @@ return [
         ],
         'lead' => [
             'driver' => 'session',
-            'provider' => 'leads',
+            'provider' => 'admins',
         ],
         'admin' => [
             'driver' => 'session',
@@ -50,7 +50,7 @@ return [
         ],
         'user' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'admins',
         ],
     ],
 
@@ -76,14 +76,14 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-        'users' => [
-            'driver' => 'database',
-            'model' => App\Models\User::class,
-        ],
-        'leads' => [
-            'driver' => 'database',
-            'model' => App\Models\User::class,
-        ],
+        // 'users' => [
+        //     'driver' => 'database',
+        //     'model' => App\Models\User::class,
+        // ],
+        // 'leads' => [
+        //     'driver' => 'database',
+        //     'model' => App\Models\User::class,
+        // ],
     ],
 
     /*

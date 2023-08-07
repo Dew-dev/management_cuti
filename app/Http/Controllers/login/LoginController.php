@@ -21,7 +21,6 @@ class LoginController extends Controller
         // dd(Auth::user());
         if (Auth::check()) { }
         // dd(Auth::guard('user')->check(), Auth::guard('admin')->check());
-        // dd(Auth::guard('lead')->attempt(['email' => $request->email, 'password' => $request->password, 'role_id' => 3]));
         if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password, 'role_id' => 1])) {
             return redirect()->route('admin.pengajuan.index');
         } else if (Auth::guard('lead')->attempt(['email' => $request->email, 'password' => $request->password, 'role_id' => 3])) {
@@ -44,6 +43,6 @@ class LoginController extends Controller
         } elseif (Auth::guard('web')->check()) {
             Auth::guard('web')->logout();
         }
-        return redirect('/');
+        return redirect('/auth/login');
     }
 }
