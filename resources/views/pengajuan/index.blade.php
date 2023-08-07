@@ -131,53 +131,43 @@
                                                                 data-original-title="Edit" control-id="ControlID-16">
                                                                 <i class="fa fa-edit" style="color:grey;"></i>
                                                             </a>
+                                                            <button type="submit" onclick="destroy({{$user->id}})" data-toggle="tooltip" title="Delete"
+                                                                class="btn btn-link btn-simple-danger"
+                                                                data-original-title="Delete" control-id="ControlID-17">
+                                                                <i class="fa fa-trash" style="color:red;"></i>
+                                                            </button>
                                                             <a href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{route('lead.pengajuan.approve', $user->id) }}" data-toggle="tooltip" title="Scan QR"
-                                                                    class="btn btn-link btn-simple-danger btn-lg"
-                                                                    data-original-title="approve via qr" control-id="ControlID-16">
-                                                                    <i class="fa fa-qrcode" style="color:blue;"></i>
-                                                                </a>
+                                                                class="btn btn-link btn-simple-danger btn-lg"
+                                                                data-original-title="approve via qr" control-id="ControlID-16">
+                                                                <i class="fa fa-qrcode" style="color:blue;"></i>
+                                                            </a>
                                                             @endif
-                                                                <button type="submit" onclick="destroy({{$user->id}})" data-toggle="tooltip" title="Delete"
-                                                                    class="btn btn-link btn-simple-danger"
-                                                                    data-original-title="Delete" control-id="ControlID-17">
-                                                                    <i class="fa fa-trash" style="color:red;"></i>
-                                                                </button>
-                                                                @elseif (Auth::guard('admin')->check())
-                                                                @if($user->status == 0)
-                                                                <a href="{{route('admin.pengajuan.approve', $user->id) }}" data-toggle="tooltip" title="Edit"
-                                                                    class="btn btn-link btn-simple-primary btn-lg"
-                                                                    data-original-title="approve" control-id="ControlID-16">
-                                                                    <i class="fa fa-check" style="color:green;"></i>
-                                                                </a>
-                                                                <a href="{{route('admin.pengajuan.disapprove', $user->id) }}" data-toggle="tooltip" title="Edit"
-                                                                    class="btn btn-link btn-simple-danger btn-lg"
-                                                                    data-original-title="disapprove" control-id="ControlID-16">
-                                                                    <i class="fa fa-times" style="color:red;"></i>
-                                                                </a>
-                                                                @endif
-                                                                {{-- <a href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{route('admin.pengajuan.approve', $user->id) }}" data-toggle="tooltip" title="disapprove"
-                                                                    class="btn btn-link btn-simple-danger btn-lg"
-                                                                    data-original-title="approve via qr" control-id="ControlID-16">
-                                                                    <i class="fa fa-qrcode" style="color:blue;"></i>
-                                                                </a> --}}
-                                                                @elseif (Auth::guard('lead')->check() )
-                                                                @if($user->status == 0)
-                                                                <a href="{{route('lead.pengajuan.approve', $user->id) }}" data-toggle="tooltip" title="Approve"
-                                                                    class="btn btn-link btn-simple-primary btn-lg"
-                                                                    data-original-title="approve" control-id="ControlID-16">
-                                                                    <i class="fa fa-check" style="color:green;"></i>
-                                                                </a>
-                                                                <a href="{{route('lead.pengajuan.disapprove', $user->id) }}" data-toggle="tooltip" title="Disapprove"
-                                                                    class="btn btn-link btn-simple-danger btn-lg"
-                                                                    data-original-title="Disapprove" control-id="ControlID-16">
-                                                                    <i class="fa fa-times" style="color:red;"></i>
-                                                                </a>
-                                                                @endif
-                                                                {{-- <a href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{route('lead.pengajuan.approve', $user->id) }}" data-toggle="tooltip" title="Scan QR"
-                                                                    class="btn btn-link btn-simple-danger btn-lg"
-                                                                    data-original-title="approve via qr" control-id="ControlID-16">
-                                                                    <i class="fa fa-qrcode" style="color:blue;"></i>
-                                                                </a> --}}
+                                                            @elseif (Auth::guard('admin')->check())
+                                                            @if($user->status == 0)
+                                                            <a href="{{route('admin.pengajuan.approve', $user->id) }}" data-toggle="tooltip" title="Approve"
+                                                                class="btn btn-link btn-simple-primary btn-lg"
+                                                                data-original-title="approve" control-id="ControlID-16">
+                                                                <i class="fa fa-check" style="color:green;"></i>
+                                                            </a>
+                                                            <a href="{{route('admin.pengajuan.disapprove', $user->id) }}" data-toggle="tooltip" title="Disapprove"
+                                                                class="btn btn-link btn-simple-danger btn-lg"
+                                                                data-original-title="disapprove" control-id="ControlID-16">
+                                                                <i class="fa fa-times" style="color:red;"></i>
+                                                            </a>
+                                                            @endif
+                                                            @elseif (Auth::guard('lead')->check() )
+                                                            @if($user->status == 0)
+                                                            <a href="{{route('lead.pengajuan.approve', $user->id) }}" data-toggle="tooltip" title="Approve"
+                                                                class="btn btn-link btn-simple-primary btn-lg"
+                                                                data-original-title="approve" control-id="ControlID-16">
+                                                                <i class="fa fa-check" style="color:green;"></i>
+                                                            </a>
+                                                            <a href="{{route('lead.pengajuan.disapprove', $user->id) }}" data-toggle="tooltip" title="Disapprove"
+                                                                class="btn btn-link btn-simple-danger btn-lg"
+                                                                data-original-title="Disapprove" control-id="ControlID-16">
+                                                                <i class="fa fa-times" style="color:red;"></i>
+                                                            </a>
+                                                            @endif
                                                             @endif
                                                         </div>
                                                     </center>
