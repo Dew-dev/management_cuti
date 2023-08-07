@@ -23,7 +23,11 @@ Route::get('/', function () {
         if(Auth::guard('user')->check()){
             return redirect()->route('user.pengajuan.index');
         } else {
-            return redirect()->route('login.index');
+            if(Auth::guard('lead')->check()){
+                return redirect()->route('lead.pengajuan.index');
+            }else{
+                return redirect()->route('login.index');
+            }
         }
     }
 });
