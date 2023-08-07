@@ -19,13 +19,16 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
         // dd(Auth::user());
-        if (Auth::check()) { }
+        if (Auth::check()) { }   
         // dd(Auth::guard('user')->check(), Auth::guard('admin')->check());
         if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password, 'role_id' => 1])) {
             return redirect()->route('admin.pengajuan.index');
         } else if (Auth::guard('lead')->attempt(['email' => $request->email, 'password' => $request->password, 'role_id' => 3])) {
-            $request->session()->regenerate();
-            return redirect()->route('lead.pengajuan.index');
+            $intendedUrl = session()->pull('url.intended', route('lead.pengajuan.index')); 
+            if (!$intendedUrl) {
+                $intendedUrl = route('lead.pengajuan.index');
+            }
+            return redirect()->to($intendedUrl);
         } else if (Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password, 'role_id' => 2])) {
             return redirect()->route('user.pengajuan.index');
         }else {
