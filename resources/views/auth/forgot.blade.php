@@ -55,6 +55,7 @@
         <input type="password" name="repassword" id="repassword" placeholder="Re-Password" required>
         <i class="uil uil-keyhole-circle"></i>
     </div>
+    <a href="{{route('login.index')}}" style="text-align:right;"><i>Back To Login</i> </a>
    </div>
 
    <br>
