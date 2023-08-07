@@ -26,9 +26,9 @@
                         </a>
                     </div>
                     @else
-                    <div class="page-inner mt-2">
-                    @endif
-
+                    <div class="page-inner mt-2"> </div>
+                     @endif
+                    <h3 style="margin-left: 3%; margin-bottom:3%"> Sisa Cuti Anda Tahun Ini : {{$count}} </h3>
                     <!-- Table -->
                     <div class="table-responsive">
                         <div id="add-row_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">

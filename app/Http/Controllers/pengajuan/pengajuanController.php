@@ -17,7 +17,22 @@ class pengajuanController extends Controller
     public function index()
     {
         $data['title'] = "Daftar Pengajuan";
-        // dd($data);
+        $pengajuan = pengajuan::where('pemohon_id', Auth::user()->id)->where('status',1)->get();
+        $year = date('Y');
+        $count = 12;
+        foreach($pengajuan as $p){
+            $tgl = explode(",",$p->tgl_cuti);
+            // dd($tgl);
+            foreach($tgl as $tgl){
+                // $jadiTanggal = date($tgl);
+                $tahunCuti= date('Y', strtotime($tgl));
+                if($year == $tahunCuti){
+                    $count--;
+                }
+                // dd(date($tgl));
+            };
+        }
+        $data['count'] = $count;
         if (Auth::guard('admin')->check() || Auth::guard('lead')->check()) {
             $data['pengajuan'] = pengajuan::where('deleted_at',null)->get();
         } else {
@@ -138,9 +153,9 @@ class pengajuanController extends Controller
     {
         date_default_timezone_set("Asia/Bangkok");
         $datenow = date('Y-m-d H:i:s');
-
+        // dd($req->id);
         $user_pay = pengajuan::where('id', $req->id)->update([
-            'dari' => $req->tgl_cuti,
+            'tgl_cuti' => $req->from,
             // 'sampai' => $req->to,
             'keterangan' => $req->keterangan,
             'updated_at' => $datenow
