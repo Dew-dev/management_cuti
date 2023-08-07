@@ -28,7 +28,9 @@
                     @else
                     <div class="page-inner mt-2"> </div>
                      @endif
+                     @if(!Auth::guard('admin')->check() && !Auth::guard('lead')->check())
                     <h3 style="margin-left: 3%; margin-bottom:3%"> Sisa Cuti Anda Tahun Ini : {{$count}} </h3>
+                    @endif;
                     <!-- Table -->
                     <div class="table-responsive">
                         <div id="add-row_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
