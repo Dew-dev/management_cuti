@@ -62,8 +62,8 @@ Route::namespace('App\Http\Controllers')->group(function (){
             Route::post('store', 'pengajuanController@store')->name('store');
             Route::get('detail/{id}', 'pengajuanController@detail')->name('detail');
             Route::get('edit/{id}', 'pengajuanController@edit')->name('edit');
-            Route::get('approve', 'pengajuanController@approve')->name('approve');
-            Route::get('disapprove', 'pengajuanController@disapprove')->name('disapprove');
+            Route::get('approve/{id}', 'pengajuanController@approve')->name('approve');
+            Route::get('disapprove/{id}', 'pengajuanController@disapprove')->name('disapprove');
             Route::post('update', 'pengajuanController@update')->name('update');
             Route::post('delete', 'pengajuanController@delete')->name('delete');
             Route::post('getMonth', 'pengajuanController@getMonth')->name('getMonth');
@@ -86,8 +86,8 @@ Route::namespace('App\Http\Controllers')->group(function (){
             Route::post('store', 'pengajuanController@store')->name('store');
             Route::get('detail/{id}', 'pengajuanController@detail')->name('detail');
             Route::get('edit/{id}', 'pengajuanController@edit')->name('edit');
-            Route::get('approve', 'pengajuanController@approve')->name('approve');
-            Route::get('disapprove', 'pengajuanController@disapprove')->name('disapprove');
+            Route::get('approve/{id}', 'pengajuanController@approve')->name('approve');
+            Route::get('disapprove/{id}', 'pengajuanController@disapprove')->name('disapprove');
             Route::post('update', 'pengajuanController@update')->name('update');
             Route::post('delete', 'pengajuanController@delete')->name('delete');
             Route::post('getMonth', 'pengajuanController@getMonth')->name('getMonth');
@@ -115,8 +115,8 @@ Route::namespace('App\Http\Controllers')->group(function (){
             Route::get('detail/{id}', 'pengajuanController@detail')->name('detail');
             Route::get('edit/{id}', 'pengajuanController@edit')->name('edit');
             Route::post('update', 'pengajuanController@update')->name('update');
-            Route::get('approve', 'pengajuanController@approve')->name('approve');
-            Route::get('disapprove', 'pengajuanController@disapprove')->name('disapprove');
+            Route::get('approve/{id}', 'pengajuanController@approve')->name('approve');
+            Route::get('disapprove/{id}', 'pengajuanController@disapprove')->name('disapprove');
             Route::post('delete', 'pengajuanController@delete')->name('delete');
             Route::post('getMonth', 'pengajuanController@getMonth')->name('getMonth');
             Route::post('export', 'pengajuanController@export')->name('export');

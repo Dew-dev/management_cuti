@@ -89,6 +89,11 @@ class pengajuanController extends Controller
             'status' => 1,
             'penyetuju_id' => Auth::user()->id
         ]);
+        if (Auth::user('admin')) {
+            return redirect()->route('admin.pengajuan.index')->with(['success' => 'Telah Disetujui!']);
+        } else {
+            return redirect()->route('user.pengajuan.index')->with(['success' => 'Telah Disetujui!']);
+        }
     }
 
     public function disapprove($id)
@@ -97,6 +102,12 @@ class pengajuanController extends Controller
             'status' => 2,
             'penyetuju_id' => Auth::user()->id
         ]);
+        if (Auth::user('admin')) {
+            return redirect()->route('admin.pengajuan.index')->with(['gagal' => 'Telah Ditolak!']);
+        } else {
+            return redirect()->route('user.pengajuan.index')->with(['gagal' => 'Telah Ditolak!']);
+        }
+
     }
 
     // Detail Data View by id
