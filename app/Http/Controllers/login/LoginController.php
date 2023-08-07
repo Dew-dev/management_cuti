@@ -24,6 +24,7 @@ class LoginController extends Controller
         if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password, 'role_id' => 1])) {
             return redirect()->route('admin.pengajuan.index');
         } else if (Auth::guard('lead')->attempt(['email' => $request->email, 'password' => $request->password, 'role_id' => 3])) {
+            $request->session()->regenerate();
             return redirect()->route('lead.pengajuan.index');
         } else if (Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password, 'role_id' => 2])) {
             return redirect()->route('user.pengajuan.index');
