@@ -1,6 +1,6 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Manajemen Cuti</title>
+    <title>Management Cuti</title>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
