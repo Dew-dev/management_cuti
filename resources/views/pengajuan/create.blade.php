@@ -52,7 +52,14 @@
                                         <div style="float:right;">
                                             @if ($title == 'Add Pengajuan')
                                                 <div class="col-md-10" style="margin-right: 20px;">
-                                                    <a href="{{ route('user.pengajuan.index') }}" type="button" class="btn btn-danger">
+                                                    <a @if(Auth::guard('lead')->check())
+                                                        href="{{ route('lead.pengajuan.index') }}"
+                                                        @elseif(Auth::guard('admin')->check())
+                                                        href="{{ route('admin.pengajuan.index') }}"
+                                                        @else
+                                                        href="{{ route('user.pengajuan.index') }}"
+                                                        @endif
+                                                         type="button" class="btn btn-danger">
                                                         <i class="fa fa-arrow-left"></i>&nbsp;
                                                         Back
                                                     </a>
@@ -63,7 +70,13 @@
                                                 </div>
                                             @elseif ($title == 'Edit Pengajuan')
                                                 <div class="col-md-10" style="margin-right: 20px;">
-                                                    <a href="{{ route('user.pengajuan.index') }}" type="button" class="btn btn-danger">
+                                                    <a @if(Auth::guard('lead')->check())
+                                                        href="{{ route('lead.pengajuan.index') }}"
+                                                        @elseif(Auth::guard('admin')->check())
+                                                        href="{{ route('admin.pengajuan.index') }}"
+                                                        @else
+                                                        href="{{ route('user.pengajuan.index') }}"
+                                                        @endif type="button" class="btn btn-danger">
                                                         <i class="fa fa-arrow-left"></i>&nbsp;
                                                         Back
                                                     </a>
@@ -74,13 +87,20 @@
                                                 </div>
                                             @else
                                                 <div class="col-md-10" style="margin-right: 20px;">
-                                                    <a href="{{ route('user.pengajuan.index') }}" type="button" class="btn btn-danger">
+                                                    <a @if(Auth::guard('lead')->check())
+                                                        href="{{ route('lead.pengajuan.index') }}"
+                                                        @elseif(Auth::guard('admin')->check())
+                                                        href="{{ route('admin.pengajuan.index') }}"
+                                                        @else
+                                                        href="{{ route('user.pengajuan.index') }}"
+                                                        @endif type="button" class="btn btn-danger">
                                                         <i class="fa fa-arrow-left"></i>&nbsp;
                                                         Back
                                                     </a>
-                                                </div> @endif
-                                                    </div>
-                                            </div>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                         </div>

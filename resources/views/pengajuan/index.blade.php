@@ -16,8 +16,8 @@
                         </div>
                     </div>
                 </div>
-                @if (!Auth::guard('admin')->check() && !Auth::guard('lead')->check())
                 <div class="page-inner mt--5">
+                    @if (!Auth::guard('admin')->check() && !Auth::guard('lead')->check())
                     <!-- Button -->
                     <div class="d-flex">
                         <a class="btn btn-primary btn-round ml-auto mb-3" href="{{ route('user.pengajuan.create') }}">
@@ -26,16 +26,19 @@
                         </a>
                     </div>
                     <div class="col-md-4">
-                       @if($count == 0)
-                       <div class="col-md-10 justify-content-center" style="background-color:red;color:white;padding:10px;border-radius:15px;">
+                        @if($count == 0)
+                        <div class="col-md-10 justify-content-center" style="background-color:red;color:white;padding:10px;border-radius:15px;">
                             <h3 style="margin-left: 3%; margin-bottom:3%"> Sisa Cuti Anda Tahun Ini : <b>{{$count}}</b> </h3>
                         </div>
-                       @else
+                        @else
                         <div class="col-md-10 justify-content-center" style="background-color:rgb(13, 156, 13);color:white;padding:10px;border-radius:15px;">
                             <h3 style="margin-left: 3%; margin-bottom:3%"> Sisa Cuti Anda Tahun Ini : <b>{{$count}}</b> </h3>
                         </div>
-                       @endif
+                        @endif
                     </div>
+                    <br>
+                    @else
+                    <br>
                     <br>
                     @endif
                     <!-- Table -->
@@ -119,7 +122,14 @@
                                                 <td>
                                                     <center>
                                                         <div class="form-button-action">
-                                                            <a href="{{route('admin.pengajuan.detail', $user->id) }}" data-toggle="tooltip" title="Detail"
+                                                            <a @if(Auth::guard('lead')->check())
+                                                                href="{{route('lead.pengajuan.detail', $user->id) }}"
+                                                                @elseif(Auth::guard('admin')->check())
+                                                                href="{{route('admin.pengajuan.detail', $user->id) }}"
+                                                                @else
+                                                                href="{{route('user.pengajuan.detail', $user->id) }}"
+                                                                @endif
+                                                                data-toggle="tooltip" title="Detail"
                                                                 class="btn btn-link btn-simple-primary btn-lg"
                                                                 data-original-title="Detail" control-id="ControlID-16">
                                                                 <i class="fa fa-eye"></i>
