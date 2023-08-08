@@ -29,15 +29,21 @@ class ForgotControllers extends Controller
         $exec = count(User::where('email', $req->email)->get());
 
         if($exec == 1){
-            if($req->password == $req->repassword){
-                $email_update = User::where('email', $req->email)->update([
-                    'password' => bcrypt($req->password),
-                    'updated_at' => $datenow
-                ]);
+            $check = User::where('email', $req->email)->first();
 
-                return redirect('/')->with(['success' => 'Success Change Password!']);
+            if($check->role_id == 2){
+                if($req->password == $req->repassword){
+                    $email_update = User::where('email', $req->email)->update([
+                        'password' => bcrypt($req->password),
+                        'updated_at' => $datenow
+                    ]);
+    
+                    return redirect()->route('login.index')->with(['success' => 'Success Change Password!']);
+                }else{
+                    return redirect()->route('forgot.index')->with(['gagal' => 'Unmatch Password!']);
+                }
             }else{
-                return redirect()->route('forgot.index')->with(['gagal' => 'Unmatch Password!']);
+                return redirect()->route('forgot.index')->with(['gagal' => 'Invalid!']);
             }
         }else{
             return redirect()->route('forgot.index')->with(['gagal' => 'Email Not Exist!']);
