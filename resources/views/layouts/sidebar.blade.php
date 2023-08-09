@@ -28,7 +28,7 @@
                 <li class="nav-item dropdown hidden-caret">
                     <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
                         <div class="avatar-sm">
-                            @if(Auth::guard('admin')->check())
+                            @if (Auth::guard('admin')->check() || Auth::guard('lead')->check())
                                 <img src="{{ asset('img/admin.png') }}" style="background-color:white;" alt="..." class="avatar-img rounded-circle">
                             @else
                                 <img src="{{ asset('img/user.png') }}" alt="..." class="avatar-img rounded-circle">
@@ -40,7 +40,7 @@
                             <li>
                                 <div class="user-box">
                                     <div class="avatar-lg">
-                                        @if (Auth::guard('admin')->check())
+                                        @if (Auth::guard('admin')->check() || Auth::guard('lead')->check())
                                             <img src="{{ asset('img/admin.png') }}" style="background-color:white;"
                                                 alt="..." class="avatar-img rounded-circle">
                                         @else
