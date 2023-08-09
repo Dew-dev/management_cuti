@@ -146,7 +146,7 @@
                                                                 data-original-title="Delete" control-id="ControlID-17">
                                                                 <i class="fa fa-trash" style="color:red;"></i>
                                                             </button>
-                                                            <a href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{route('lead.pengajuan.approve', $user->id) }}" data-toggle="tooltip" title="Scan QR"
+                                                            <a target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{route('lead.pengajuan.approve', $user->id) }}" data-toggle="tooltip" title="Scan QR"
                                                                 class="btn btn-link btn-simple-danger btn-lg"
                                                                 data-original-title="approve via qr" control-id="ControlID-16">
                                                                 <i class="fa fa-qrcode" style="color:blue;"></i>
