@@ -58,6 +58,12 @@
             <ul class="nav nav-primary">
             @if(Auth::guard('admin')->check())
                 <li class="nav-item ">
+                    <a href="{{route('admin.dashboard.index')}}" aria-expanded="false">
+                        <i class="fas fa-clipboard-list"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
                     <a href="{{route('admin.pengajuan.index')}}" aria-expanded="false">
                         <i class="fas fa-clipboard-list"></i>
                         <p>Daftar Pengajuan Cuti</p>

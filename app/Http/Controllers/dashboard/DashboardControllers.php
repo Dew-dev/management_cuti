@@ -24,9 +24,10 @@ class DashboardControllers extends Controller
     // Index View and Scope Data
     public function index()
     {
-        // $data['pengajuan'] = pengajuan::get();
-        $data['users'] = User::whereNot('role_id',1)->whereNull('deleted_at')->get();
-        $data['title'] = "Daftar User";
+        $data['total'] = pengajuan::whereNull('deleted_at')->count();
+        $data['total_approve'] = pengajuan::whereNull('deleted_at')->where('status', 1)->count();
+        $data['total_disapprove'] = pengajuan::whereNull('deleted_at')->where('status', 2)->count();
+        $data['title'] = "Dashboard";
         return view('dashboard',$data);
     }
 
