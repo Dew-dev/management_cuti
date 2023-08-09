@@ -70,7 +70,7 @@
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a href="{{route('admin.dashboard.index')}}" aria-expanded="false">
+                    <a href="{{route('admin.users.index')}}" aria-expanded="false">
                         <i class="fas fa-user"></i>
                         <p>User</p>
                     </a>

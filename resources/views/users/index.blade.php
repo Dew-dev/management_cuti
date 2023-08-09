@@ -58,12 +58,6 @@
                                                     rowspan="1" colspan="1"
                                                     aria-label="Position: activate to sort column ascending"
                                                     style="width: 15%; font-weight:900;">
-                                                    <center>Username</center>
-                                                </th>
-                                                <th width="25%" class="sorting" tabindex="0" aria-controls="add-row"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="Position: activate to sort column ascending"
-                                                    style="width: 15%; font-weight:900;">
                                                     <center>Email</center>
                                                 </th>
                                                 <th width="25%" class="sorting" tabindex="0" aria-controls="add-row"
@@ -81,23 +75,19 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <?php $num = 0; ?>
-                                        @foreach($users as $user)
+                                        @foreach($users as $key=>$user)
                                             <tr role="row" class="odd">
                                                 <td>
-                                                    <center>{{$num=$num+1}}</center>
+                                                    <center>{{$key+1}}</center>
                                                 </td>
                                                 <td class="sorting_1">
-                                                    <center>{{$user->name}}</center>
-                                                </td>
-                                                <td class="sorting_1">
-                                                    <center>{{$user->username}}</center>
+                                                    {{$user->nama}}
                                                 </td>
                                                 <td class="sorting_1">
                                                     <center>{{$user->email}}</center>
                                                 </td>
                                                 <td class="sorting_1">
-                                                   <center>{{$user->role->role}}</center>
+                                                    <center>{{$user->role->nama}}</center>
                                                 </td>
                                                 <td>
                                                     <center>
