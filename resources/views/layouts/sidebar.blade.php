@@ -59,7 +59,7 @@
             @if(Auth::guard('admin')->check())
                 <li class="nav-item ">
                     <a href="{{route('admin.dashboard.index')}}" aria-expanded="false">
-                        <i class="fas fa-clipboard-list"></i>
+                        <i class="fas fa-chart-bar"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
@@ -76,12 +76,18 @@
                     </a>
                 </li>
             @elseif(Auth::guard('lead')->check())
-            <li class="nav-item ">
-                <a href="{{route('lead.pengajuan.index')}}" aria-expanded="false">
-                    <i class="fas fa-clipboard-list"></i>
-                    <p>Daftar Pengajuan Cuti</p>
-                </a>
-            </li>
+                <li class="nav-item ">
+                    <a href="{{route('lead.dashboard.index')}}" aria-expanded="false">
+                        <i class="fas fa-chart-bar"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{{route('lead.pengajuan.index')}}" aria-expanded="false">
+                        <i class="fas fa-clipboard-list"></i>
+                        <p>Daftar Pengajuan Cuti</p>
+                    </a>
+                </li>
             @else
                 <li class="nav-item ">
                     <a href="{{route('user.pengajuan.index')}}" aria-expanded="false">
