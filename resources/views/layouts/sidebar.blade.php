@@ -38,9 +38,27 @@
                     <ul class="dropdown-menu dropdown-user animated fadeIn">
                         <div class="dropdown-user-scroll scrollbar-outer">
                             <li>
-                                <form action="{{url('/auth/logout')}}" method="post">
+                                <div class="user-box">
+                                    <div class="avatar-lg">
+                                        @if (Auth::guard('admin')->check())
+                                            <img src="{{ asset('img/admin.png') }}" style="background-color:white;"
+                                                alt="..." class="avatar-img rounded-circle">
+                                        @else
+                                            <img src="{{ asset('img/user.png') }}" alt="..."
+                                                class="avatar-img rounded-circle">
+                                        @endif
+                                    </div>
+                                    <div class="u-text">
+                                        <h4>{{ Auth::user()->nama }}</h4>
+                                        <p class="text-muted"><b>{{ Auth::user()->role->nama }}</b></p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="dropdown-divider"></div>
+                                <form action="{{ url('/auth/logout') }}" method="post">
                                     @csrf
-                                    <button class="dropdown-item">Log Out</button>
+                                    <button class="dropdown-item">Logout</button>
                                 </form>
                             </li>
                         </div>
