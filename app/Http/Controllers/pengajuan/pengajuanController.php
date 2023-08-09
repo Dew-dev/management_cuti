@@ -106,9 +106,9 @@ class pengajuanController extends Controller
             'penyetuju_id' => Auth::user()->id
         ]);
         if (Auth::guard('admin')->check()) {
-            return redirect()->route('admin.pengajuan.index')->with(['success' => 'Telah Disetujui!']);
+            return redirect()->route('admin.pengajuan.index')->with(['success' => 'Approve!']);
         } else {
-            return redirect()->route('lead.pengajuan.index')->with(['success' => 'Telah Disetujui!']);
+            return redirect()->route('lead.pengajuan.index')->with(['success' => 'Approve!']);
         }
     }
 
@@ -119,9 +119,9 @@ class pengajuanController extends Controller
             'penyetuju_id' => Auth::user()->id
         ]);
         if (Auth::guard('admin')->check()) {
-            return redirect()->route('admin.pengajuan.index')->with(['gagal' => 'Telah Ditolak!']);
+            return redirect()->route('admin.pengajuan.index')->with(['gagal' => 'Disapprove!']);
         } else {
-            return redirect()->route('user.pengajuan.index')->with(['gagal' => 'Telah Ditolak!']);
+            return redirect()->route('user.pengajuan.index')->with(['gagal' => 'Disapprove!']);
         }
 
     }
@@ -163,9 +163,9 @@ class pengajuanController extends Controller
         ]);
 
         if (Auth::guard('admin')->check()) {
-            return redirect()->route('admin.pengajuan.index')->with(['success' => 'Data successfully stored!']);
+            return redirect()->route('admin.pengajuan.index')->with(['success' => 'Data successfully updated!']);
         } else {
-            return redirect()->route('user.pengajuan.index')->with(['success' => 'Data successfully stored!']);
+            return redirect()->route('user.pengajuan.index')->with(['success' => 'Data successfully updated!']);
         }
         // }
     }
