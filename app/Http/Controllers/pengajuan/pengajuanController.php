@@ -103,6 +103,7 @@ class pengajuanController extends Controller
     {
         pengajuan::where('id', $id)->update([
             'status' => 1,
+            'keterangan_pimpinan' => 'Approve oleh Pimpinan',
             'penyetuju_id' => Auth::user()->id
         ]);
         if (Auth::guard('admin')->check()) {
