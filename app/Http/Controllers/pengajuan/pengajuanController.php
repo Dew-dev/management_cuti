@@ -35,9 +35,9 @@ class pengajuanController extends Controller
         $data['count'] = $count;
         // dd(Auth::guard('admin') );
         if (Auth::guard('admin')->check() || Auth::guard('lead')->check()) {
-            $data['pengajuan'] = pengajuan::where('deleted_at',null)->get();
+            $data['pengajuan'] = pengajuan::where('deleted_at',null)->orderBy('tgl_cuti', 'desc')->orderBy('status', 'asc')->get();
         } else {
-            $data['pengajuan'] = pengajuan::where('pemohon_id', Auth::user()->id)->where('deleted_at',null)->get();
+            $data['pengajuan'] = pengajuan::where('pemohon_id', Auth::user()->id)->where('deleted_at',null)->orderBy('tgl_cuti', 'desc')->orderBy('status', 'asc')->get();
         }
 
         // dd(Auth::user()->id);
