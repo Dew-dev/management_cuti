@@ -113,16 +113,18 @@ class pengajuanController extends Controller
         }
     }
 
-    public function disapprove($id)
+    public function disapprove(Request $req, $id)
     {
-        pengajuan::where('id', $id)->update([
+        $exec = pengajuan::where('id', $id)->update([
             'status' => 2,
+            'keterangan_pimpinan' => $req->keterangan_pimpinan,
             'penyetuju_id' => Auth::user()->id
         ]);
-        if (Auth::guard('admin')->check()) {
-            return redirect()->route('admin.pengajuan.index')->with(['gagal' => 'Disapprove!']);
+
+        if ($exec) {
+            Session::flash('success', 'Disapprove!');
         } else {
-            return redirect()->route('user.pengajuan.index')->with(['gagal' => 'Disapprove!']);
+            Session::flash('gagal', 'Error Data');
         }
 
     }

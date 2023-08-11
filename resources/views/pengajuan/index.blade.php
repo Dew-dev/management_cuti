@@ -38,7 +38,7 @@
                         <div class="col-md-10 justify-content-center" style="background-color:rgb(13, 156, 13);color:white;padding:10px;border-radius:15px;">
                             <h3 style="margin-left: 3%; margin-bottom:3%"> Sisa Cuti Anda Tahun Ini : <b>{{$count}}</b> </h3>
                         </div>
-                       
+
                     </div>
                     @endif
                     <br>
@@ -162,7 +162,7 @@
                                                                 data-original-title="approve" control-id="ControlID-16">
                                                                 <i class="fa fa-check" style="color:green;"></i>
                                                             </a>
-                                                            <a href="{{route('admin.pengajuan.disapprove', $user->id) }}" data-toggle="tooltip" title="Disapprove"
+                                                            <a data-toggle="modal" data-target="#myModal" onclick="disapprove_modal('{{route('admin.pengajuan.disapprove', $user->id) }}')" title="Disapprove"
                                                                 class="btn btn-link btn-simple-danger btn-lg"
                                                                 data-original-title="disapprove" control-id="ControlID-16">
                                                                 <i class="fa fa-times" style="color:red;"></i>
@@ -175,7 +175,7 @@
                                                                 data-original-title="approve" control-id="ControlID-16">
                                                                 <i class="fa fa-check" style="color:green;"></i>
                                                             </a>
-                                                            <a href="{{route('lead.pengajuan.disapprove', $user->id) }}" data-toggle="tooltip" title="Disapprove"
+                                                            <a data-toggle="modal" data-target="#myModal" onclick="disapprove_modal('{{route('lead.pengajuan.disapprove', $user->id) }}')" title="Disapprove"
                                                                 class="btn btn-link btn-simple-danger btn-lg"
                                                                 data-original-title="Disapprove" control-id="ControlID-16">
                                                                 <i class="fa fa-times" style="color:red;"></i>
@@ -203,6 +203,31 @@
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title"><b>Penolakan Pengajuan</b></h4>
+                        </div>
+
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <input type="hidden" id="url_disapprove">
+                                <label>Keterangan<span class="text-danger">*</span></label>
+                                <textarea name="keterangan_pimpinan" class="form-control" id="keterangan_pimpinan" cols="10" rows="5"></textarea>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button onclick="disapprove()" class="btn btn-primary" data-dismiss="modal">Simpan</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
             @include('layouts.footer')
             <script src="{{ asset('js/app/table.js') }}"></script>
         </div>
@@ -210,25 +235,45 @@
 </body>
 
 <script>
-    function destroy(id) {
-    var token = $('meta[name="csrf-token"]').attr('content');
+    function disapprove_modal(url) {
+        $('#url_disapprove').val(url);
+	}
 
-    swal({
-          title: "",
-          text: "Are you sure want to delete this record?",
-          icon: "warning",
-          buttons: ['Cancel', 'OK'],
-          // dangerMode: true,
-      }).then((willDelete) => {
-          if (willDelete) {
-            $.post("{{route('user.pengajuan.delete')}}",{ id:id,_token:token},function(data){
+    function disapprove(){
+        let url = $('#url_disapprove').val();
+        let ket = $('#keterangan_pimpinan').val();
+
+        $.ajax({
+            url: url,
+            data: {
+                'keterangan_pimpinan': ket
+            },
+            type: 'get',
+            success: function(res) {
                 location.reload();
-            })
-          } else {
-            return false;
-          }
-      });
-  }
+            }
+        })
+    }
+
+    function destroy(id) {
+        var token = $('meta[name="csrf-token"]').attr('content');
+
+        swal({
+            title: "",
+            text: "Are you sure want to delete this record?",
+            icon: "warning",
+            buttons: ['Cancel', 'OK'],
+            // dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                $.post("{{route('user.pengajuan.delete')}}",{ id:id,_token:token},function(data){
+                    location.reload();
+                })
+            } else {
+                return false;
+            }
+        });
+    }
 </script>
 
 @include('layouts.swal')
