@@ -215,7 +215,7 @@
 
                             <div class="form-group">
                                 <input type="hidden" id="url_disapprove">
-                                <label>Keterangan<span class="text-danger">*</span></label>
+                                <label>Keterangan</label>
                                 <textarea name="keterangan_pimpinan" class="form-control" id="keterangan_pimpinan" cols="10" rows="5"></textarea>
                             </div>
 

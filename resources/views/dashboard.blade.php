@@ -31,7 +31,7 @@
                                         <div class="col-md-8">
                                         <div class="card-title">Total Pengajuan</div>
                                             <div class="card-body">
-                                                <h2 style="text-align:right;" id="counter_all">0</h2>
+                                                <h2 style="text-align:right;" id="counter_all">{{$total}}</h2>
                                             </div>
                                         </div>
                                     </div>
@@ -48,7 +48,7 @@
                                         <div class="col-md-8">
                                         <div class="card-title">Total Approval</div>
                                             <div class="card-body">
-                                                <h2 style="text-align:right;" id="total_approve">0</h2>
+                                                <h2 style="text-align:right;" id="total_approve">{{$total_approve}}</h2>
                                             </div>
                                         </div>
                                     </div>
@@ -65,7 +65,7 @@
                                         <div class="col-md-8">
                                         <div class="card-title">Total Disapproval</div>
                                             <div class="card-body">
-                                                <h2 style="text-align:right;" id="total_disapprove">0</h2>
+                                                <h2 style="text-align:right;" id="total_disapprove">{{$total_disapprove}}</h2>
                                             </div>
                                         </div>
                                     </div>
@@ -79,50 +79,6 @@
         </div>
     </div>
     <script>
-        @if($total > 0)
-            let total = {{$total}};
-            let counts = setInterval(updatedprods);
-            let upto = 0;
-
-            function updatedprods(){
-                var count= document.getElementById("counter_all");
-                count.innerHTML=++upto;
-                if(upto===total)
-                {
-                    clearInterval(counts);
-                }
-            }
-        @endif
-
-        @if($total_approve > 0)
-            let total_approve = {{$total_approve}};
-            let countszz = setInterval(updatedactive);
-            let uptos = 0;
-
-            function updatedactive(){
-                var countx= document.getElementById("total_approve");
-                countx.innerHTML=++uptos;
-                if(uptos===total_approve)
-                {
-                    clearInterval(countszz);
-                }
-            }
-        @endif
-
-        @if($total_disapprove > 0)
-            let total_disapprove = {{$total_disapprove}};
-            let countszzz = setInterval(updateinactive);
-            let uptosz = 0;
-
-            function updateinactive(){
-                var county= document.getElementById("counter_inactive");
-                county.innerHTML=++uptosz;
-                if(uptosz===total_disapprove)
-                {
-                    clearInterval(countszzz);
-                }
-            }
-        @endif
     </script>
 
 </body>
