@@ -47,7 +47,7 @@ class UsersControllers extends Controller
         $exec_3 = User::where('telpon', $request->phone)->first();
 
         if($exec || $exec_3){
-            return back()->with(['gagal' => 'Your Email, Username or Phone Already Exist!']);
+            return back()->with(['gagal' => 'Email, username atau nomor telepon sudah tersedia!']);
         }else{
             if($request->password == $request->repassword){
                 date_default_timezone_set("Asia/Bangkok");
@@ -63,7 +63,7 @@ class UsersControllers extends Controller
                     'alamat' => $request->address,
                     'created_at' => $datenow
                 ]);
-                return redirect()->route('admin.dashboard.index')->with(['success' => 'Data successfully stored!']);
+                return redirect()->route('admin.dashboard.index')->with(['success' => 'Data berhasil disimpan!']);
             }else{
                 return back()->with(['gagal' => 'Password Not Match!']);
             }
@@ -112,7 +112,7 @@ class UsersControllers extends Controller
                     'alamat' => $req->address,
                     'updated_at' => $datenow
                 ]);
-                return redirect()->route('admin.dashboard.index')->with(['success' => 'Data successfully updated!']);
+                return redirect()->route('admin.dashboard.index')->with(['success' => 'Data berhasil diperbaharui!']);
             }else{
                 return back()->with(['gagal' => 'Password Not Match!']);
             }
@@ -125,7 +125,7 @@ class UsersControllers extends Controller
                 'alamat' => $req->address,
                 'updated_at' => $datenow
             ]);
-            return redirect()->route('admin.dashboard.index')->with(['success' => 'Data successfully updated!']);
+            return redirect()->route('admin.dashboard.index')->with(['success' => 'Data berhasil diperbaharui!']);
         }
     }
 
@@ -139,7 +139,7 @@ class UsersControllers extends Controller
         ]);
 
         if ($exec) {
-            Session::flash('success', 'Data successfully deleted!');
+            Session::flash('success', 'Data berhasil dihapus!');
           } else {
             Session::flash('gagal', 'Error Data');
           }

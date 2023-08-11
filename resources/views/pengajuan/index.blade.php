@@ -19,23 +19,28 @@
                 <div class="page-inner mt--5">
                     @if (!Auth::guard('admin')->check() && !Auth::guard('lead')->check())
                     <!-- Button -->
-                    <div class="d-flex">
-                        <a class="btn btn-primary btn-round ml-auto mb-3" href="{{ route('user.pengajuan.create') }}">
-                            <i class="fa fa-plus"></i>
-                            Add Pengajuan
-                        </a>
-                    </div>
+                    @if($count == 0)
+                    <br>
+                    <br>
                     <div class="col-md-4">
-                        @if($count == 0)
                         <div class="col-md-10 justify-content-center" style="background-color:red;color:white;padding:10px;border-radius:15px;">
                             <h3 style="margin-left: 3%; margin-bottom:3%"> Sisa Cuti Anda Tahun Ini : <b>{{$count}}</b> </h3>
                         </div>
-                        @else
+                    </div>
+                    @else
+                    <div class="d-flex">
+                        <a class="btn btn-primary btn-round ml-auto mb-3" @if($count == 0) href="#" disabled  @else  href="{{ route('user.pengajuan.create') }}" @endif>
+                            <i class="fa fa-plus"></i>
+                            Tambah Pengajuan
+                        </a>
+                    </div>
+                    <div class="col-md-4">
                         <div class="col-md-10 justify-content-center" style="background-color:rgb(13, 156, 13);color:white;padding:10px;border-radius:15px;">
                             <h3 style="margin-left: 3%; margin-bottom:3%"> Sisa Cuti Anda Tahun Ini : <b>{{$count}}</b> </h3>
                         </div>
-                        @endif
+                       
                     </div>
+                    @endif
                     <br>
                     @else
                     <br>
@@ -112,16 +117,13 @@
                                                 <td class="sorting_1">
                                                     <center>{{$user->keterangan}}</center>
                                                 </td>
-
                                                 <td class="sorting_1">
                                                     <center>{{$user->status == 1 ? "Disetujui" : ($user->status == 0 ? "Belum Disetujui" : "Ditolak"  ) }}</center>
                                                 </td>
-                                                {{-- <td class="sorting_1">
-                                                   <center>{{$user->role()}}</center>
-                                                </td> --}}
                                                 <td>
                                                     <center>
                                                         <div class="form-button-action">
+                                                            @if($user->status != 0)
                                                             <a @if(Auth::guard('lead')->check())
                                                                 href="{{route('lead.pengajuan.detail', $user->id) }}"
                                                                 @elseif(Auth::guard('admin')->check())
@@ -134,6 +136,7 @@
                                                                 data-original-title="Detail" control-id="ControlID-16">
                                                                 <i class="fa fa-eye"></i>
                                                             </a>
+                                                            @endif
                                                             @if(Auth::user()->id == $user->pemohon_id)
                                                             @if($user->status == 0)
                                                             <a href="{{route('user.pengajuan.edit', $user->id) }}" data-toggle="tooltip" title="Edit"

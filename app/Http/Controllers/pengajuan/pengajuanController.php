@@ -88,9 +88,9 @@ class pengajuanController extends Controller
             'created_at' => $datenow
         ]);
         if (Auth::guard('admin')->check()) {
-            return redirect()->route('admin.pengajuan.index')->with(['success' => 'Data successfully stored!']);
+            return redirect()->route('admin.pengajuan.index')->with(['success' => 'Data berhasil disimpan!']);
         } else {
-            return redirect()->route('user.pengajuan.index')->with(['success' => 'Data successfully stored!']);
+            return redirect()->route('user.pengajuan.index')->with(['success' => 'Data berhasil disimpan!']);
         }
         // }else{
         //     return back()->with(['gagal' => 'Password Not Match!']);
@@ -133,6 +133,7 @@ class pengajuanController extends Controller
         $data['disabled_'] = 'disabled';
         $data['url'] = 'create';
         $data['users'] = pengajuan::where('id', $id)->first();
+        $data['hasil'] = pengajuan::where('id', $id)->first();
         // $data['roles'] = Role::all();
         return view('pengajuan.create', $data);
     }
@@ -163,9 +164,9 @@ class pengajuanController extends Controller
         ]);
 
         if (Auth::guard('admin')->check()) {
-            return redirect()->route('admin.pengajuan.index')->with(['success' => 'Data successfully updated!']);
+            return redirect()->route('admin.pengajuan.index')->with(['success' => 'Data berhasil diperbaharui!']);
         } else {
-            return redirect()->route('user.pengajuan.index')->with(['success' => 'Data successfully updated!']);
+            return redirect()->route('user.pengajuan.index')->with(['success' => 'Data berhasil diperbaharui!']);
         }
         // }
     }
@@ -180,7 +181,7 @@ class pengajuanController extends Controller
         ]);
 
         if ($exec) {
-            Session::flash('success', 'Data successfully deleted!');
+            Session::flash('success', 'Data berhasil dihapus!');
         } else {
             Session::flash('gagal', 'Error Data');
         }

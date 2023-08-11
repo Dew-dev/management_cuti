@@ -48,6 +48,32 @@
                                         </div>
                                     </div>
                                     <br>
+                                    {{-- NEW --}}
+                                    @isset($hasil)
+                                    <hr>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-11">
+                                            <label class="col-md-6" for="">Status Pengajuan</label>
+                                            <div class="col-md-12">
+                                                <input type="text" name="status_result" id="status_result" @if($hasil->status == 1) value="Approve" @else value="Ditolak" @endif class="form-control"
+                                                  style="width:100%;" {{ $disabled_ }}>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-11">
+                                            <label class="col-md-6">Keterangan Pimpinan</span></label>
+                                            <div class="col-md-12">
+                                                <textarea class="form-control" name="keterangan" id="keterangan" rows="5" cols="10"  autocomplete="off" required {{ $disabled_ }} style="width:100%">@if (isset($hasil)) {{ $hasil->keterangan_pimpinan }} @endisset</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    @endisset
                                     <div class="modal-footer">
                                         <div style="float:right;">
                                             @if ($title == 'Add Pengajuan')

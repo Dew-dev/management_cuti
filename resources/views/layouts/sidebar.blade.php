@@ -4,7 +4,7 @@
         <a href="{{ url('/') }}" class="logo mt-2">
             <span style="display:flex;">
                 <img src="{{ asset('img/logo_new.png') }}" width="50" alt="navbar brand" class="navbar-brand">
-                <h5 class="text-light ml-1" style="margin:auto;">Management Cuti</h5>
+                <h5 class="text-light ml-1" style="margin:auto;">Manajemen Cuti</h5>
             </span>
         </a>
         <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse"

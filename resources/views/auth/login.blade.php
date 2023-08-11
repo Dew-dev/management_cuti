@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Management Cuti - Login</title>
+  <title>Manajemen Cuti - Login</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -39,7 +39,7 @@
 							<center>
 								<img src="{{ asset('img/logo_new.png') }}" width="40%" alt="">
 								<span class="login100-form-title p-b-43">
-									Management Cuti
+									Manajemen Cuti
 								</span>
 							</center>
 						</div>

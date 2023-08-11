@@ -38,63 +38,17 @@ class ForgotControllers extends Controller
                         'updated_at' => $datenow
                     ]);
     
-                    return redirect()->route('login.index')->with(['success' => 'Success Change Password!']);
+                    return redirect()->route('login.index')->with(['success' => 'Berhasil merubah password!']);
                 }else{
-                    return redirect()->route('forgot.index')->with(['gagal' => 'Unmatch Password!']);
+                    return redirect()->route('forgot.index')->with(['gagal' => 'Password tidak cocok!']);
                 }
             }else{
                 return redirect()->route('forgot.index')->with(['gagal' => 'Invalid!']);
             }
         }else{
-            return redirect()->route('forgot.index')->with(['gagal' => 'Email Not Exist!']);
+            return redirect()->route('forgot.index')->with(['gagal' => 'Email sudah tersedia!']);
         }
     }
-
-    // // Detail Data View by id
-    // public function detail($id)
-    // {
-    //     $data['title'] = "Detail Supplier";
-    //     $data['disabled_'] = 'disabled';
-    //     $data['url'] = 'create';
-    //     $data['suppliers'] = Supplier::where('id', $id)->first();
-    //     return view('supplier.create', $data);
-    // }
-
-    // // Edit Data View by id
-    // public function edit($id)
-    // {
-    //     $data['title'] = "Edit Supplier";
-    //     $data['disabled_'] = '';
-    //     $data['url'] = 'update';
-    //     $data['suppliers'] = Supplier::where('id', $id)->first();
-    //     return view('supplier.create', $data);
-    // }
-
-    // // Update Function to Database
-    // public function update(Request $req)
-    // {
-    //     date_default_timezone_set("Asia/Bangkok");
-    //     $datenow = date('Y-m-d H:i:s');
-    //     $supplier_pay = Supplier::where('id', $req->id)->update([
-    //         'supplier' => $req->supplier,
-    //         'note' => $req->note,
-    //         'updated_at' => $datenow
-    //     ]);
-
-    //     return redirect()->route('admin.supplier.index')->with(['success' => 'Data successfully updated!']);
-    // }
-
-    // // Delete Data Function
-    // public function delete(Request $req)
-    // {
-    //     $exec = Supplier::where('id', $req->id )->delete();
-
-    //     if ($exec) {
-    //         Session::flash('success', 'Data successfully deleted!');
-    //       } else {
-    //         Session::flash('gagal', 'Error Data');
-    //       }
-    // }
 
 
 }
