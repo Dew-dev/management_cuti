@@ -112,8 +112,8 @@ Route::namespace('App\Http\Controllers')->group(function () {
     Route::middleware('auth:user')->prefix('user')->name('user.')->group(function () {
 
         Route::namespace('users')->prefix('users')->name('users.')->group(function () {
-            Route::get('/edit_profile', 'UsersControllers@edit_profile')->name('edit_profile');
-            Route::post('/update', 'UsersControllers@update')->name('update');
+            Route::get('edit_profile', 'UsersControllers@edit_profile')->name('edit_profile');
+            Route::post('update', 'UsersControllers@update')->name('update');
         });
 
         Route::namespace('pengajuan')->prefix('pengajuan')->name('pengajuan.')->group(function () {
