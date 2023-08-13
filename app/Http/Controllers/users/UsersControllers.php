@@ -145,5 +145,12 @@ class UsersControllers extends Controller
           }
     }
 
-
+    public function edit_profile(){
+        $data['title'] = "Edit User";
+        $data['disabled_'] = '';
+        $data['url'] = 'update';
+        $data['users'] = User::where('id',Auth::user()->id)->first();
+        $data['roles'] = Role::all();
+        return view('users.create', $data);
+    }
 }

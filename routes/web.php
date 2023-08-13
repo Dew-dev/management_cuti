@@ -17,22 +17,22 @@ use Illuminate\Support\Facades\Route;
 // ALL CONTROLLERS
 
 Route::get('/', function () {
-    if(Auth::guard('admin')->check()){
-    	return redirect()->route('admin.pengajuan.index');
+    if (Auth::guard('admin')->check()) {
+        return redirect()->route('admin.pengajuan.index');
     } else {
-        if(Auth::guard('user')->check()){
+        if (Auth::guard('user')->check()) {
             return redirect()->route('user.pengajuan.index');
         } else {
-            if(Auth::guard('lead')->check()){
+            if (Auth::guard('lead')->check()) {
                 return redirect()->route('lead.pengajuan.index');
-            }else{
+            } else {
                 return redirect()->route('login.index');
             }
         }
     }
 });
 
-Route::namespace('App\Http\Controllers')->group(function (){
+Route::namespace('App\Http\Controllers')->group(function () {
 
     Route::namespace('login')->prefix('auth')->name('login.')->group(function () {
         Route::get('/login', 'LoginController@index')->name('index');
@@ -44,10 +44,9 @@ Route::namespace('App\Http\Controllers')->group(function (){
         Route::get('/forgot', 'ForgotControllers@index')->name('index');
         Route::post('/forgot', 'ForgotControllers@updatepass')->name('updatepass');
     });
-
 });
 
-Route::namespace('App\Http\Controllers')->group(function (){
+Route::namespace('App\Http\Controllers')->group(function () {
     Route::middleware('auth:lead')->prefix('lead')->name('lead.')->group(function () {
         // ROUTE TO DASHBOARD CONTROLLERS
         Route::namespace('dashboard')->name('dashboard.')->group(function () {
@@ -55,6 +54,11 @@ Route::namespace('App\Http\Controllers')->group(function (){
         });
 
         // ROUTE TO ORDER CONTROLLERS
+        Route::namespace('users')->prefix('users')->name('users.')->group(function () {
+            Route::get('/', 'UsersControllers@index')->name('index');
+            Route::get('edit_profile', 'UsersControllers@edit_profile')->name('edit_profile');
+            Route::post('update', 'UsersControllers@update')->name('update');
+        });
 
         Route::namespace('pengajuan')->prefix('pengajuan')->name('pengajuan.')->group(function () {
             Route::get('/', 'pengajuanController@index')->name('index');
@@ -69,7 +73,6 @@ Route::namespace('App\Http\Controllers')->group(function (){
             Route::post('getMonth', 'pengajuanController@getMonth')->name('getMonth');
             Route::post('export', 'pengajuanController@export')->name('export');
         });
-
     });
 
     Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function () {
@@ -108,6 +111,11 @@ Route::namespace('App\Http\Controllers')->group(function (){
 
     Route::middleware('auth:user')->prefix('user')->name('user.')->group(function () {
 
+        Route::namespace('users')->prefix('users')->name('users.')->group(function () {
+            Route::get('/edit_profile', 'UsersControllers@edit_profile')->name('edit_profile');
+            Route::post('/update', 'UsersControllers@update')->name('update');
+        });
+
         Route::namespace('pengajuan')->prefix('pengajuan')->name('pengajuan.')->group(function () {
             Route::get('/', 'pengajuanController@index')->name('index');
             Route::get('create', 'pengajuanController@create')->name('create');
@@ -123,5 +131,3 @@ Route::namespace('App\Http\Controllers')->group(function (){
         });
     });
 });
-
-

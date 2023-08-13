@@ -7,8 +7,8 @@
                 <h5 class="text-light ml-1" style="margin:auto;">Manajemen Cuti</h5>
             </span>
         </a>
-        <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse"
-            aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse"
+            data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon">
                 <i class="icon-menu"></i>
             </span>
@@ -29,7 +29,8 @@
                     <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
                         <div class="avatar-sm">
                             @if (Auth::guard('admin')->check() || Auth::guard('lead')->check())
-                                <img src="{{ asset('img/admin.png') }}" style="background-color:white;" alt="..." class="avatar-img rounded-circle">
+                                <img src="{{ asset('img/admin.png') }}" style="background-color:white;" alt="..."
+                                    class="avatar-img rounded-circle">
                             @else
                                 <img src="{{ asset('img/user.png') }}" alt="..." class="avatar-img rounded-circle">
                             @endif
@@ -54,6 +55,19 @@
                                     </div>
                                 </div>
                             </li>
+                            @if (!Auth::guard('admin')->check())
+                                @if (Auth::guard('lead')->check())
+                                    <li>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{route('lead.users.edit_profile')}}"> Edit Profile</a>
+                                    </li>
+                                    @else
+                                    <li>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{route('user.users.edit_profile')}}"> Edit Profile</a>
+                                    </li>
+                                @endif
+                            @endif
                             <li>
                                 <div class="dropdown-divider"></div>
                                 <form action="{{ url('/auth/logout') }}" method="post">
@@ -74,46 +88,46 @@
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
             <ul class="nav nav-primary">
-            @if(Auth::guard('admin')->check())
-                <li class="nav-item ">
-                    <a href="{{route('admin.dashboard.index')}}" aria-expanded="false">
-                        <i class="fas fa-chart-bar"></i>
-                        <p>Dashboard</p>
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a href="{{route('admin.pengajuan.index')}}" aria-expanded="false">
-                        <i class="fas fa-clipboard-list"></i>
-                        <p>Daftar Pengajuan Cuti</p>
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a href="{{route('admin.users.index')}}" aria-expanded="false">
-                        <i class="fas fa-user"></i>
-                        <p>User</p>
-                    </a>
-                </li>
-            @elseif(Auth::guard('lead')->check())
-                <li class="nav-item ">
-                    <a href="{{route('lead.dashboard.index')}}" aria-expanded="false">
-                        <i class="fas fa-chart-bar"></i>
-                        <p>Dashboard</p>
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a href="{{route('lead.pengajuan.index')}}" aria-expanded="false">
-                        <i class="fas fa-clipboard-list"></i>
-                        <p>Daftar Pengajuan Cuti</p>
-                    </a>
-                </li>
-            @else
-                <li class="nav-item ">
-                    <a href="{{route('user.pengajuan.index')}}" aria-expanded="false">
-                        <i class="fas fa-clipboard-list"></i>
-                        <p>Pengajuan Cuti</p>
-                    </a>
-                </li>
-            @endif
+                @if (Auth::guard('admin')->check())
+                    <li class="nav-item ">
+                        <a href="{{ route('admin.dashboard.index') }}" aria-expanded="false">
+                            <i class="fas fa-chart-bar"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a href="{{ route('admin.pengajuan.index') }}" aria-expanded="false">
+                            <i class="fas fa-clipboard-list"></i>
+                            <p>Daftar Pengajuan Cuti</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a href="{{ route('admin.users.index') }}" aria-expanded="false">
+                            <i class="fas fa-user"></i>
+                            <p>User</p>
+                        </a>
+                    </li>
+                @elseif(Auth::guard('lead')->check())
+                    <li class="nav-item ">
+                        <a href="{{ route('lead.dashboard.index') }}" aria-expanded="false">
+                            <i class="fas fa-chart-bar"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a href="{{ route('lead.pengajuan.index') }}" aria-expanded="false">
+                            <i class="fas fa-clipboard-list"></i>
+                            <p>Daftar Pengajuan Cuti</p>
+                        </a>
+                    </li>
+                @else
+                    <li class="nav-item ">
+                        <a href="{{ route('user.pengajuan.index') }}" aria-expanded="false">
+                            <i class="fas fa-clipboard-list"></i>
+                            <p>Pengajuan Cuti</p>
+                        </a>
+                    </li>
+                @endif
             </ul>
         </div>
     </div>
