@@ -59,12 +59,12 @@
                                 @if (Auth::guard('lead')->check())
                                     <li>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="{{route('lead.users.edit_profile')}}"> Edit Profile</a>
+                                        <a class="dropdown-item" href="{{route('lead.users.edit_profile',['id'=>Auth::user()->id])}}"> Edit Profile</a>
                                     </li>
                                     @else
                                     <li>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="{{route('user.users.edit_profile')}}"> Edit Profile</a>
+                                        <a class="dropdown-item" href="{{route('user.users.edit_profile',['id'=>Auth::user()->id])}}"> Edit Profile</a>
                                     </li>
                                 @endif
                             @endif

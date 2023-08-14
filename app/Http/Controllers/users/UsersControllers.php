@@ -90,6 +90,7 @@ class UsersControllers extends Controller
         $data['url'] = 'update';
         $data['users'] = User::where('id', $id)->first();
         $data['roles'] = Role::all();
+        $data['id'] = $id;
         return view('users.create', $data);
     }
 
@@ -100,7 +101,7 @@ class UsersControllers extends Controller
         $exec_3 = User::where('telpon', $req->phone)->first();
         date_default_timezone_set("Asia/Bangkok");
         $datenow = date('Y-m-d H:i:s');
-
+        // dd($req->id);
         if($req->password && $req->repassword){
             if($req->password == $req->repassword){
                 $user_pay = User::where('id', $req->id)->update([
@@ -112,7 +113,13 @@ class UsersControllers extends Controller
                     'alamat' => $req->address,
                     'updated_at' => $datenow
                 ]);
-                return redirect()->route('admin.dashboard.index')->with(['success' => 'Data berhasil diperbaharui!']);
+                if(Auth::guard('admin')->check()){
+                    return redirect()->route('admin.dashboard.index')->with(['success' => 'Data berhasil diperbaharui!']);
+                }else if(Auth::guard('lead')->check()){
+                    return redirect()->route('lead.pengajuan.index')->with(['success' => 'Data berhasil diperbaharui!']);
+                }else{
+                    return redirect()->route('user.pengajuan.index')->with(['success' => 'Data berhasil diperbaharui!']);
+                }
             }else{
                 return back()->with(['gagal' => 'Password Not Match!']);
             }
@@ -125,7 +132,13 @@ class UsersControllers extends Controller
                 'alamat' => $req->address,
                 'updated_at' => $datenow
             ]);
-            return redirect()->route('admin.dashboard.index')->with(['success' => 'Data berhasil diperbaharui!']);
+            if(Auth::guard('admin')->check()){
+                return redirect()->route('admin.dashboard.index')->with(['success' => 'Data berhasil diperbaharui!']);
+            }else if(Auth::guard('lead')->check()){
+                return redirect()->route('lead.pengajuan.index')->with(['success' => 'Data berhasil diperbaharui!']);
+            }else{
+                return redirect()->route('user.pengajuan.index')->with(['success' => 'Data berhasil diperbaharui!']);
+            }
         }
     }
 
@@ -145,12 +158,13 @@ class UsersControllers extends Controller
           }
     }
 
-    public function edit_profile(){
+    public function edit_profile($id){
         $data['title'] = "Edit User";
         $data['disabled_'] = '';
         $data['url'] = 'update';
         $data['users'] = User::where('id',Auth::user()->id)->first();
-        $data['roles'] = Role::all();
+        $data['roles'] = Role::where('id',Auth::user()->role_id)->get();
+        $data['id'] = $id;
         return view('users.create', $data);
     }
 }

@@ -19,10 +19,17 @@
                     <section class="content container-fluid">
                         <div class="box box-primary">
                             <div class="box-body">
-                                <form id="form_add" action="{{ route('admin.users.' . $url) }}" method="post" enctype="multipart/form-data" >
+                                @if (Auth::guard('admin')->check())
+                                    <form id="form_add" action="{{ route('admin.users.' . $url) }}" method="post" enctype="multipart/form-data" >
+                                @elseif (Auth::guard('lead')->check())
+                                    <form id="form_add" action="{{ route('lead.users.' . $url) }}" method="post" enctype="multipart/form-data" >
+                                @else
+                                    <form id="form_add" action="{{ route('user.users.' . $url) }}" method="post" enctype="multipart/form-data" >
+                                @endif
                                     {{ csrf_field() }}
                                     <br>
                                     <div class="row">
+                                        <input type="hidden" name="id" value="{{$id}}">
                                         <div class="col-md-1"></div>
                                         <div class="col-md-11">
                                             <label class="col-md-6">Name <span style="color: red;">*</span></label>
