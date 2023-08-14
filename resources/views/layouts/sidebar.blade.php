@@ -52,6 +52,9 @@
                                     <div class="u-text">
                                         <h4>{{ Auth::user()->nama }}</h4>
                                         <p class="text-muted"><b>{{ Auth::user()->role->nama }}</b></p>
+                                        @if (Auth::guard('user')->check())
+                                        <p class="text-muted"><b>NIP : {{ Auth::user()->nip }}</b></p>
+                                        @endif
                                     </div>
                                 </div>
                             </li>

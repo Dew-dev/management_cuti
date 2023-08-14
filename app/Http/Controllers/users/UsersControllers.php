@@ -74,6 +74,7 @@ class UsersControllers extends Controller
     // Detail Data View by id
     public function detail($id)
     {
+        $data['id'] = $id;
         $data['title'] = "Detail User";
         $data['disabled_'] = 'disabled';
         $data['url'] = 'create';
@@ -107,6 +108,7 @@ class UsersControllers extends Controller
                 $user_pay = User::where('id', $req->id)->update([
                     'email' => $req->email,
                     'telpon' => $req->phone,
+                    'nip' => $req->nip,
                     'password' => bcrypt($req->password),
                     'nama' => $req->name,
                     'role_id' => $req->role,
@@ -127,13 +129,14 @@ class UsersControllers extends Controller
             $user_pay = User::where('id', $req->id)->update([
                 'email' => $req->email,
                 'telpon' => $req->phone,
+                'nip' => $req->nip,
                 'nama' => $req->name,
                 'role_id' => $req->role,
                 'alamat' => $req->address,
                 'updated_at' => $datenow
             ]);
             if(Auth::guard('admin')->check()){
-                return redirect()->route('admin.dashboard.index')->with(['success' => 'Data berhasil diperbaharui!']);
+                return redirect()->route('admin.users.index')->with(['success' => 'Data berhasil diperbaharui!']);
             }else if(Auth::guard('lead')->check()){
                 return redirect()->route('lead.pengajuan.index')->with(['success' => 'Data berhasil diperbaharui!']);
             }else{

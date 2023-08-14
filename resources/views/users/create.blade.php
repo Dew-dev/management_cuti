@@ -88,6 +88,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @if (Auth::guard('admin')->check())
                                     <br>
                                     <div class="row">
                                         <div class="col-md-1"></div>
@@ -103,6 +104,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @else
+                                    <input type="hidden" value="{{$users->role_id}}" name="role" id="role">
+                                    @endif
                                     <br>
                                     <div class="row">
                                         <div class="col-md-1"></div>
@@ -116,36 +120,25 @@
                                     <br>
                                     <div class="modal-footer">
                                         <div style="float:right;">
-                                            @if ($title == 'Add User')
-                                                <div class="col-md-10" style="margin-right: 20px;">
-                                                    <a href="{{ route('admin.dashboard.index')}}" type="button" class="btn btn-danger">
-                                                        <i class="fa fa-arrow-left"></i>&nbsp;
-                                                        Back
-                                                    </a>
-                                                    <button type="submit" class="btn btn-primary" style="margin-left:10px;">
-                                                        <i class="fa fa-check"></i>&nbsp;
-                                                        Save
-                                                    </button>
-                                                </div>
-                                            @elseif ($title == 'Edit User')
-                                                <div class="col-md-10" style="margin-right: 20px;">
-                                                    <a href="{{ route('admin.dashboard.index')}}" type="button" class="btn btn-danger">
-                                                        <i class="fa fa-arrow-left"></i>&nbsp;
-                                                        Back
-                                                    </a>
-                                                    <button type="submit" class="btn btn-primary" style="margin-left:10px;">
-                                                        <i class="fa fa-check"></i>&nbsp;
-                                                        Save
-                                                    </button>
-                                                </div>
-                                            @else
-                                                <div class="col-md-10" style="margin-right: 20px;">
-                                                    <a href="{{ route('admin.dashboard.index')}}" type="button" class="btn btn-danger">
-                                                        <i class="fa fa-arrow-left"></i>&nbsp;
-                                                        Back
-                                                    </a>
-                                                </div>
-                                            @endif
+                                            <div class="col-md-10" style="margin-right: 20px;">
+                                                <a @if (Auth::guard('admin')->check())
+                                                    href="{{ route('admin.users.index')}}" 
+                                                    @elseif (Auth::guard('lead')->check())
+                                                    href="{{ route('lead.dashboard.index')}}" 
+                                                    @else
+                                                    href="{{ route('user.pengajuan.index')}}" 
+                                                    @endif
+                                                     type="button" class="btn btn-danger">
+                                                    <i class="fa fa-arrow-left"></i>&nbsp;
+                                                    Back
+                                                </a>
+                                                @if ($title == 'Add User' || $title == 'Edit User')
+                                                <button type="submit" class="btn btn-primary" style="margin-left:10px;">
+                                                    <i class="fa fa-check"></i>&nbsp;
+                                                    Save
+                                                </button>
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
                                 </form>
