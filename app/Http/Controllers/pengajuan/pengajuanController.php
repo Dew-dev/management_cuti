@@ -129,7 +129,7 @@ class pengajuanController extends Controller
 
         $exec = pengajuan::where('id', $req->id)->update([
             'status' => 1,
-            'keterangan_pimpinan' => $req->ket,
+            'keterangan_pimpinan' => $req->keterangan_pimpinan,
             'penyetuju_id' => Auth::user()->id,
             'lampiran_persetujuan' => $filename
         ]);
