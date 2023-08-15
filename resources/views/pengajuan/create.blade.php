@@ -85,6 +85,28 @@
                                         </div>
                                     </div>
                                     <br>
+                                    @if(Auth::guard('user')->check())
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-11">
+                                            <label class="col-md-12">
+                                                <center>
+                                                    <b>
+                                                        QR untuk Download Lampiran
+                                                    </b>
+                                                </center>
+                                            </label>
+                                            <br>
+                                            <br>
+                                            <div class="col-md-12">
+                                                <center>
+                                                    <img class="" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ route('user.pengajuan.downloadPDF',['id'=> $hasil->id, 'file'=>$hasil->lampiran_persetujuan]) }}" alt="">
+                                                </center>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    @endif
                                     @endisset
                                     <div class="modal-footer">
                                         <div style="float:right;">

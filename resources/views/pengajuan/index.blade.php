@@ -136,6 +136,19 @@
                                                                 data-original-title="Detail" control-id="ControlID-16">
                                                                 <i class="fa fa-eye"></i>
                                                             </a>
+                                                            @if(Auth::user()->id == $user->pemohon_id)
+                                                            <a target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ route('user.pengajuan.downloadPDF',['id'=> $user->id, 'file'=>$user->lampiran_persetujuan]) }}" data-toggle="tooltip" title="QR Lampiran"
+                                                                class="btn btn-link btn-simple-danger btn-lg"
+                                                                data-original-title="approve via qr" control-id="ControlID-16">
+                                                                <i class="fa fa-qrcode" style="color:blue;"></i>
+                                                            </a>
+                                                            @else
+                                                            <a target="_blank" href="{{ asset('Uploads/Persetujuan/'.$user->id.'/'.$user->lampiran_persetujuan.'') }}" data-toggle="tooltip" title="Lampiran Persetujuan"
+                                                                class="btn btn-link btn-simple-danger btn-lg"
+                                                                data-original-title="approve via qr" control-id="ControlID-16">
+                                                                <i class="fa fa-file"></i>
+                                                            </a>
+                                                            @endif
                                                             @endif
                                                             @if(Auth::user()->id == $user->pemohon_id)
                                                             @if($user->status == 0)
@@ -149,11 +162,6 @@
                                                                 data-original-title="Delete" control-id="ControlID-17">
                                                                 <i class="fa fa-trash" style="color:red;"></i>
                                                             </button>
-                                                            <a target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{route('lead.pengajuan.approve', $user->id) }}" data-toggle="tooltip" title="Scan QR"
-                                                                class="btn btn-link btn-simple-danger btn-lg"
-                                                                data-original-title="approve via qr" control-id="ControlID-16">
-                                                                <i class="fa fa-qrcode" style="color:blue;"></i>
-                                                            </a>
                                                             @endif
                                                             @elseif (Auth::guard('admin')->check())
                                                             @if($user->status == 0)

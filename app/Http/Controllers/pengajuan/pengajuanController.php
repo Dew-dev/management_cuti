@@ -8,6 +8,7 @@ use App\Models\pengajuan\pengajuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use Response;
 class pengajuanController extends Controller
 {
     public function __construct()
@@ -154,6 +155,12 @@ class pengajuanController extends Controller
         }
 
     }
+
+    public function downloadPDF($id, $file){
+        //PDF file is stored under project/public/download/info.pdf
+        $file="Uploads/Persetujuan/".$id."/".$file."";
+        return Response::download($file);
+}
 
     // Detail Data View by id
     public function detail($id)

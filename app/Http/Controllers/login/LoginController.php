@@ -30,7 +30,11 @@ class LoginController extends Controller
             }
             return redirect()->to($intendedUrl);
         } else if (Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password, 'role_id' => 2])) {
-            return redirect()->route('user.pengajuan.index');
+            $intendedUrl = session()->pull('url.intended', route('user.pengajuan.index'));
+            if (!$intendedUrl) {
+                $intendedUrl = route('user.pengajuan.index');
+            }
+            return redirect()->to($intendedUrl);
         }else {
             // Session::flash('loginError', 'Login Failed!');
             return redirect()->back()->with(['gagal' => 'These credentials do not match our records.']);
