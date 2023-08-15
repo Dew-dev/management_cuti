@@ -69,8 +69,7 @@
                                         <div class="col-md-11">
                                             <label class="col-md-6">Lampiran Persetujuan</span></label>
                                             <div class="col-md-12">
-                                                <iframe src="{{ asset('Uploads/Persetujuan/'.$hasil->id.'/'.$hasil->lampiran_persetujuan.'') }}" style="width:100%; height:500px;" frameborder="0"></iframe>
-
+                                                <iframe src="{{ asset('Uploads/Persetujuan/'.$hasil->id.'/'.$hasil->lampiran_persetujuan.'') }}" style="width:100%; height:700px;" frameborder="0"></iframe>
                                             </div>
                                         </div>
                                     </div>
