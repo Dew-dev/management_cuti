@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\pengajuan\pengajuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 class pengajuanController extends Controller
 {
     public function __construct()
@@ -110,6 +111,31 @@ class pengajuanController extends Controller
             return redirect()->route('admin.pengajuan.index')->with(['success' => 'Approve!']);
         } else {
             return redirect()->route('lead.pengajuan.index')->with(['success' => 'Approve!']);
+        }
+    }
+
+    public function approval(Request $req)
+    {
+
+        $destination='Uploads/Persetujuan/'.$req->id.'\\';
+        if ($req->hasFile('file_upload')) {
+            $file = $req->file('file_upload');
+			$filename = time().'_'.$req->file('file_upload')->getClientOriginalName();
+			Storage::disk('Uploads')->putFileAs($destination,$file,$filename);
+        }else{
+            $filename = null;
+        }
+
+        $exec = pengajuan::where('id', $req->id)->update([
+            'status' => 1,
+            'keterangan_pimpinan' => $req->ket,
+            'penyetuju_id' => Auth::user()->id,
+            'lampiran_persetujuan' => $filename
+        ]);
+        if ($exec) {
+            Session::flash('success', 'Disapprove!');
+        } else {
+            Session::flash('gagal', 'Error Data');
         }
     }
 

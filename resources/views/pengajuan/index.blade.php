@@ -157,7 +157,7 @@
                                                             @endif
                                                             @elseif (Auth::guard('admin')->check())
                                                             @if($user->status == 0)
-                                                            <a data-toggle="modal" data-target="#approveModal" onclick="approve_modal('{{route('admin.pengajuan.approve', $user->id) }}')" title="Approve"
+                                                            <a data-toggle="modal" data-target="#approveModal" onclick="approve_modal('{{route('admin.pengajuan.approval') }}', '{{ $user->id }}')" title="Approve"
                                                                 class="btn btn-link btn-simple-primary btn-lg"
                                                                 data-original-title="approve" control-id="ControlID-16">
                                                                 <i class="fa fa-check" style="color:green;"></i>
@@ -170,7 +170,7 @@
                                                             @endif
                                                             @elseif (Auth::guard('lead')->check() )
                                                             @if($user->status == 0)
-                                                            <a data-toggle="modal" data-target="#approveModal" onclick="approve_modal('{{route('lead.pengajuan.approve', $user->id) }}')" title="Approve"
+                                                            <a data-toggle="modal" data-target="#approveModal" onclick="approve_modal('{{route('lead.pengajuan.approval') }}', '{{ $user->id }}')" title="Approve"
                                                                 class="btn btn-link btn-simple-primary btn-lg"
                                                                 data-original-title="approve" control-id="ControlID-16">
                                                                 <i class="fa fa-check" style="color:green;"></i>
@@ -214,11 +214,12 @@
                         <div class="modal-body">
 
                             <input type="hidden" id="url_approve">
-
+                            <input type="hidden" id="id_approval">
                             <div class="form-group">
                                 <label>Lampiran Persetujuan <span style="color: red;">*</span></label>
-                                <input type="file" name="upload_lampiran" class="form-control" id="upload_lampiran">
+                                <input type="file" accept="application/pdf" name="upload_lampiran" class="form-control" id="upload_lampiran">
                             </div>
+                            <div id="pdfContainer" class="form-control" style="display:none;"></div>
 
                             <div class="form-group">
                                 <label>Keterangan</label>
@@ -262,13 +263,15 @@
 
             @include('layouts.footer')
             <script src="{{ asset('js/app/table.js') }}"></script>
+            <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
         </div>
     </div>
 </body>
 
 <script>
-    function approve_modal(url) {
+    function approve_modal(url, id) {
         $('#url_approve').val(url);
+        $('#id_approval').val(id);
 	}
 
     function disapprove_modal(url) {
@@ -276,15 +279,24 @@
 	}
 
     function approve(){
+        console.log('masuk');
         let url = $('#url_approve').val();
+        let id = $('#id_approval').val();
         let ket = $('#keterangan_pimpinan').val();
+        let fileUpload = $('#upload_lampiran').prop('files')[0];
+        let formData = new FormData();
+
+        formData.append('_token', "{{ csrf_token() }}");
+        formData.append('id', id);
+		formData.append('keterangan_pimpinan', ket);
+		formData.append('file_upload', fileUpload);
 
         $.ajax({
             url: url,
-            data: {
-                'keterangan_pimpinan': ket
-            },
-            type: 'get',
+            type: 'POST',
+            processData: false,
+			contentType: false,
+            data: formData,
             success: function(res) {
                 location.reload();
             }
@@ -326,6 +338,33 @@
             }
         });
     }
+
+    $(document).ready(function() {
+        $('#upload_lampiran').change(function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const fileReader = new FileReader();
+                fileReader.onload = function() {
+                    const typedArray = new Uint8Array(this.result);
+                    renderPDF(typedArray);
+                };
+                fileReader.readAsArrayBuffer(file);
+            }
+        });
+
+        function renderPDF(data) {
+            const pdfUrl = URL.createObjectURL(new Blob([data], { type: 'application/pdf' }));
+            const pdfContainer = $('#pdfContainer');
+            pdfContainer.css('display', 'block');
+
+            const iframe = $('<iframe>', {
+                src: pdfUrl,
+                width: '100%',
+                height: '500px'
+            });
+            pdfContainer.empty().append(iframe);
+        }
+    });
 </script>
 
 @include('layouts.swal')

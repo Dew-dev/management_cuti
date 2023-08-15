@@ -67,6 +67,7 @@ Route::namespace('App\Http\Controllers')->group(function () {
             Route::get('detail/{id}', 'pengajuanController@detail')->name('detail');
             Route::get('edit/{id}', 'pengajuanController@edit')->name('edit');
             Route::get('approve/{id}', 'pengajuanController@approve')->name('approve');
+            Route::post('approval', 'pengajuanController@approval')->name('approval');
             Route::get('disapprove/{id}', 'pengajuanController@disapprove')->name('disapprove');
             Route::post('update', 'pengajuanController@update')->name('update');
             Route::post('delete', 'pengajuanController@delete')->name('delete');
@@ -90,6 +91,7 @@ Route::namespace('App\Http\Controllers')->group(function () {
             Route::get('detail/{id}', 'pengajuanController@detail')->name('detail');
             Route::get('edit/{id}', 'pengajuanController@edit')->name('edit');
             Route::get('approve/{id}', 'pengajuanController@approve')->name('approve');
+            Route::post('approval', 'pengajuanController@approval')->name('approval');
             Route::get('disapprove/{id}', 'pengajuanController@disapprove')->name('disapprove');
             Route::post('update', 'pengajuanController@update')->name('update');
             Route::post('delete', 'pengajuanController@delete')->name('delete');

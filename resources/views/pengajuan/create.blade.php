@@ -63,6 +63,19 @@
                                         </div>
                                     </div>
                                     <br>
+                                    @if($hasil->status == 1)
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-11">
+                                            <label class="col-md-6">Lampiran Persetujuan</span></label>
+                                            <div class="col-md-12">
+                                                <iframe src="{{ asset('Uploads/Persetujuan/'.$hasil->id.'/'.$hasil->lampiran_persetujuan.'') }}" style="width:100%; height:500px;" frameborder="0"></iframe>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    @endif
                                     <div class="row">
                                         <div class="col-md-1"></div>
                                         <div class="col-md-11">
