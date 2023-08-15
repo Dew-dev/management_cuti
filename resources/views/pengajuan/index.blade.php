@@ -157,12 +157,12 @@
                                                             @endif
                                                             @elseif (Auth::guard('admin')->check())
                                                             @if($user->status == 0)
-                                                            <a href="{{route('admin.pengajuan.approve', $user->id) }}" data-toggle="tooltip" title="Approve"
+                                                            <a data-toggle="modal" data-target="#approveModal" onclick="approve_modal('{{route('admin.pengajuan.approve', $user->id) }}')" title="Approve"
                                                                 class="btn btn-link btn-simple-primary btn-lg"
                                                                 data-original-title="approve" control-id="ControlID-16">
                                                                 <i class="fa fa-check" style="color:green;"></i>
                                                             </a>
-                                                            <a data-toggle="modal" data-target="#myModal" onclick="disapprove_modal('{{route('admin.pengajuan.disapprove', $user->id) }}')" title="Disapprove"
+                                                            <a data-toggle="modal" data-target="#disapproveModal" onclick="disapprove_modal('{{route('admin.pengajuan.disapprove', $user->id) }}')" title="Disapprove"
                                                                 class="btn btn-link btn-simple-danger btn-lg"
                                                                 data-original-title="disapprove" control-id="ControlID-16">
                                                                 <i class="fa fa-times" style="color:red;"></i>
@@ -170,12 +170,12 @@
                                                             @endif
                                                             @elseif (Auth::guard('lead')->check() )
                                                             @if($user->status == 0)
-                                                            <a href="{{route('lead.pengajuan.approve', $user->id) }}" data-toggle="tooltip" title="Approve"
+                                                            <a data-toggle="modal" data-target="#approveModal" onclick="approve_modal('{{route('lead.pengajuan.approve', $user->id) }}')" title="Approve"
                                                                 class="btn btn-link btn-simple-primary btn-lg"
                                                                 data-original-title="approve" control-id="ControlID-16">
                                                                 <i class="fa fa-check" style="color:green;"></i>
                                                             </a>
-                                                            <a data-toggle="modal" data-target="#myModal" onclick="disapprove_modal('{{route('lead.pengajuan.disapprove', $user->id) }}')" title="Disapprove"
+                                                            <a data-toggle="modal" data-target="#disapproveModal" onclick="disapprove_modal('{{route('lead.pengajuan.disapprove', $user->id) }}')" title="Disapprove"
                                                                 class="btn btn-link btn-simple-danger btn-lg"
                                                                 data-original-title="Disapprove" control-id="ControlID-16">
                                                                 <i class="fa fa-times" style="color:red;"></i>
@@ -204,7 +204,38 @@
                 </div>
             </div>
 
-            <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal fade" id="approveModal" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title"><b>Persetujuan Pengajuan</b></h4>
+                        </div>
+
+                        <div class="modal-body">
+
+                            <input type="hidden" id="url_approve">
+
+                            <div class="form-group">
+                                <label>Lampiran Persetujuan <span style="color: red;">*</span></label>
+                                <input type="file" name="upload_lampiran" class="form-control" id="upload_lampiran">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Keterangan</label>
+                                <textarea name="keterangan_pimpinan" class="form-control" id="keterangan_pimpinan" cols="10" rows="5"></textarea>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button onclick="approve()" class="btn btn-primary" data-dismiss="modal">Simpan</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="disapproveModal" role="dialog">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -228,6 +259,7 @@
                     </div>
                 </div>
             </div>
+
             @include('layouts.footer')
             <script src="{{ asset('js/app/table.js') }}"></script>
         </div>
@@ -235,9 +267,29 @@
 </body>
 
 <script>
+    function approve_modal(url) {
+        $('#url_approve').val(url);
+	}
+
     function disapprove_modal(url) {
         $('#url_disapprove').val(url);
 	}
+
+    function approve(){
+        let url = $('#url_approve').val();
+        let ket = $('#keterangan_pimpinan').val();
+
+        $.ajax({
+            url: url,
+            data: {
+                'keterangan_pimpinan': ket
+            },
+            type: 'get',
+            success: function(res) {
+                location.reload();
+            }
+        })
+    }
 
     function disapprove(){
         let url = $('#url_disapprove').val();
