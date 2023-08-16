@@ -136,6 +136,7 @@
                                                                 data-original-title="Detail" control-id="ControlID-16">
                                                                 <i class="fa fa-eye"></i>
                                                             </a>
+                                                            @if($user->status != 2)
                                                             @if(Auth::user()->id == $user->pemohon_id)
                                                             <a target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ route('user.pengajuan.downloadPDF',['id'=> $user->id, 'file'=>$user->lampiran_persetujuan]) }}" data-toggle="tooltip" title="QR Lampiran"
                                                                 class="btn btn-link btn-simple-danger btn-lg"
@@ -143,7 +144,6 @@
                                                                 <i class="fa fa-qrcode" style="color:blue;"></i>
                                                             </a>
                                                             @else
-                                                            @if($user->status != 2)
                                                             <a target="_blank" href="{{ asset('Uploads/Persetujuan/'.$user->id.'/'.$user->lampiran_persetujuan.'') }}" data-toggle="tooltip" title="Lampiran Persetujuan"
                                                                 class="btn btn-link btn-simple-danger btn-lg"
                                                                 data-original-title="approve via qr" control-id="ControlID-16">
