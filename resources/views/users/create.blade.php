@@ -29,7 +29,7 @@
                                     {{ csrf_field() }}
                                     <br>
                                     <div class="row">
-                                        <input type="hidden" name="id" value="{{$id}}">
+                                        <input type="hidden" name="id" @isset($id) value="{{$id}}" @endisset>
                                         <div class="col-md-1"></div>
                                         <div class="col-md-11">
                                             <label class="col-md-6">Name <span style="color: red;">*</span></label>
@@ -122,11 +122,11 @@
                                         <div style="float:right;">
                                             <div class="col-md-10" style="margin-right: 20px;">
                                                 <a @if (Auth::guard('admin')->check())
-                                                    href="{{ route('admin.users.index')}}" 
+                                                    href="{{ route('admin.users.index')}}"
                                                     @elseif (Auth::guard('lead')->check())
-                                                    href="{{ route('lead.dashboard.index')}}" 
+                                                    href="{{ route('lead.dashboard.index')}}"
                                                     @else
-                                                    href="{{ route('user.pengajuan.index')}}" 
+                                                    href="{{ route('user.pengajuan.index')}}"
                                                     @endif
                                                      type="button" class="btn btn-danger">
                                                     <i class="fa fa-arrow-left"></i>&nbsp;

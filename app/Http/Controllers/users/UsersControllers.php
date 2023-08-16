@@ -116,7 +116,7 @@ class UsersControllers extends Controller
                     'updated_at' => $datenow
                 ]);
                 if(Auth::guard('admin')->check()){
-                    return redirect()->route('admin.dashboard.index')->with(['success' => 'Data berhasil diperbaharui!']);
+                    return redirect()->route('admin.users.index')->with(['success' => 'Data berhasil diperbaharui!']);
                 }else if(Auth::guard('lead')->check()){
                     return redirect()->route('lead.pengajuan.index')->with(['success' => 'Data berhasil diperbaharui!']);
                 }else{

@@ -82,5 +82,5 @@
     </script>
 
 </body>
-
+@include('layouts.swal')
 </html>

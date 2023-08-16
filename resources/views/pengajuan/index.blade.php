@@ -257,7 +257,7 @@
 
                             <div class="form-group">
                                 <input type="hidden" id="url_disapprove">
-                                <label>Keterangan</label>
+                                <label>Keterangan <span style="color: red;">*</span></label>
                                 <textarea name="keterangan_pimpinan_disapprove" class="form-control" id="keterangan_pimpinan_disapprove" cols="10" rows="5"></textarea>
                             </div>
 
@@ -289,44 +289,65 @@
 	}
 
     function approve(){
-        console.log('masuk');
         let url = $('#url_approve').val();
         let id = $('#id_approval').val();
         let ket = $('#keterangan_pimpinan').val();
         let fileUpload = $('#upload_lampiran').prop('files')[0];
-        let formData = new FormData();
 
-        formData.append('_token', "{{ csrf_token() }}");
-        formData.append('id', id);
-		formData.append('keterangan_pimpinan', ket);
-		formData.append('file_upload', fileUpload);
+        if(typeof fileUpload != "undefined"){
+            let formData = new FormData();
+            formData.append('_token', "{{ csrf_token() }}");
+            formData.append('id', id);
+            formData.append('keterangan_pimpinan', ket);
+            formData.append('file_upload', fileUpload);
 
-        $.ajax({
-            url: url,
-            type: 'POST',
-            processData: false,
-			contentType: false,
-            data: formData,
-            success: function(res) {
-                location.reload();
-            }
-        })
+            $.ajax({
+                url: url,
+                type: 'POST',
+                processData: false,
+            	contentType: false,
+                data: formData,
+                success: function(res) {
+                    location.reload();
+                }
+            })
+        }else{
+            swal({
+                icon: 'warning',
+                title: 'Harap Lengkapi Data!',
+                button: false,
+                text: 'Harap melengkapi data terlebih dahulu!',
+                timer: 1500
+            });
+        }
+
     }
 
     function disapprove(){
         let url = $('#url_disapprove').val();
         let ket = $('#keterangan_pimpinan_disapprove').val();
 
-        $.ajax({
-            url: url,
-            data: {
-                'keterangan_pimpinan': ket
-            },
-            type: 'get',
-            success: function(res) {
-                location.reload();
-            }
-        })
+        if(ket != ""){
+            $.ajax({
+                url: url,
+                data: {
+                    'keterangan_pimpinan': ket
+                },
+                type: 'get',
+                success: function(res) {
+                    location.reload();
+                }
+            })
+        }else{
+            swal({
+                icon: 'warning',
+                title: 'Harap Lengkapi Data!',
+                button: false,
+                text: 'Harap melengkapi data terlebih dahulu!',
+                timer: 1500
+            });
+        }
+
     }
 
     function destroy(id) {
