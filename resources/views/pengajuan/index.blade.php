@@ -258,7 +258,7 @@
                             <div class="form-group">
                                 <input type="hidden" id="url_disapprove">
                                 <label>Keterangan</label>
-                                <textarea name="keterangan_pimpinan" class="form-control" id="keterangan_pimpinan" cols="10" rows="5"></textarea>
+                                <textarea name="keterangan_pimpinan_disapprove" class="form-control" id="keterangan_pimpinan_disapprove" cols="10" rows="5"></textarea>
                             </div>
 
                         </div>
@@ -315,7 +315,7 @@
 
     function disapprove(){
         let url = $('#url_disapprove').val();
-        let ket = $('#keterangan_pimpinan').val();
+        let ket = $('#keterangan_pimpinan_disapprove').val();
 
         $.ajax({
             url: url,
