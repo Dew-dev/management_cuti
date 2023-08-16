@@ -144,7 +144,7 @@
                                                                 <i class="fa fa-qrcode" style="color:blue;"></i>
                                                             </a>
                                                             @else
-                                                            <a target="_blank" href="{{ asset('Uploads/Persetujuan/'.$user->id.'/'.$user->lampiran_persetujuan.'') }}" data-toggle="tooltip" title="Lampiran Persetujuan"
+                                                            <a target="_blank" href="{{ asset('Uploads/Persetujuan/'.$user->lampiran_persetujuan.'') }}" data-toggle="tooltip" title="Lampiran Persetujuan"
                                                                 class="btn btn-link btn-simple-danger btn-lg"
                                                                 data-original-title="approve via qr" control-id="ControlID-16">
                                                                 <i class="fa fa-file"></i>

@@ -158,7 +158,7 @@ class pengajuanController extends Controller
 
     public function downloadPDF($id, $file){
         //PDF file is stored under project/public/download/info.pdf
-        $file="Uploads/Persetujuan/".$id."/".$file."";
+        $file="Uploads/Persetujuan/".$file."";
         return Response::download($file);
 }
 
