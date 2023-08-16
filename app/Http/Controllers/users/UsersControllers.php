@@ -63,7 +63,7 @@ class UsersControllers extends Controller
                     'alamat' => $request->address,
                     'created_at' => $datenow
                 ]);
-                return redirect()->route('admin.dashboard.index')->with(['success' => 'Data berhasil disimpan!']);
+                return redirect()->route('admin.users.index')->with(['success' => 'Data berhasil disimpan!']);
             }else{
                 return back()->with(['gagal' => 'Password Not Match!']);
             }
