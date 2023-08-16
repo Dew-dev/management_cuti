@@ -118,7 +118,7 @@ class pengajuanController extends Controller
     public function approval(Request $req)
     {
 
-        $destination='Uploads/Persetujuan/'.$req->id.'\\';
+        $destination='Uploads/Persetujuan/';
         if ($req->hasFile('file_upload')) {
             $file = $req->file('file_upload');
 			$filename = time().'_'.$req->file('file_upload')->getClientOriginalName();
