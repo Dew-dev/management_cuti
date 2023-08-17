@@ -59,12 +59,13 @@
                                         </div>
                                     </div>
                                     <br>
+                                    @if ($title == 'Add User' || $title == 'Edit User')
                                     <div class="row">
                                         <div class="col-md-1"></div>
                                         <div class="col-md-11">
-                                            <label class="col-md-6">Password <span style="color: red;">*</span></label>
+                                            <label class="col-md-6">Password @if ($title == 'Add User') <span style="color: red;">*</span>@endif</label>
                                             <div class="col-md-12">
-                                                <input type="password" name="password" id="password" class="form-control"  step="1" autocomplete="off" @if($title != "Edit User") required @endif {{ $disabled_ }} style="width:100%;">
+                                                <input type="password" name="password" id="password" class="form-control"  step="1" @if($title != "Edit User") required @endif {{ $disabled_ }} style="width:100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -72,13 +73,14 @@
                                     <div class="row">
                                         <div class="col-md-1"></div>
                                         <div class="col-md-11">
-                                            <label class="col-md-6">Re-Password <span style="color: red;">*</span></label>
+                                            <label class="col-md-6">Re-Password @if ($title == 'Add User') <span style="color: red;">*</span>@endif</label>
                                             <div class="col-md-12">
                                                 <input type="password" name="repassword" id="repassword" class="form-control"  step="1" autocomplete="off" @if($title != "Edit User") required @endif {{ $disabled_ }} style="width:100%;">
                                             </div>
                                         </div>
                                     </div>
                                     <br>
+                                    @endif
                                     <div class="row">
                                         <div class="col-md-1"></div>
                                         <div class="col-md-11">
