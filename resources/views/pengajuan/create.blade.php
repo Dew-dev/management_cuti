@@ -86,6 +86,7 @@
                                     </div>
                                     <br>
                                     @if(Auth::guard('user')->check())
+                                    @if($hasil->status == 1)
                                     <div class="row">
                                         <div class="col-md-1"></div>
                                         <div class="col-md-11">
@@ -106,6 +107,7 @@
                                         </div>
                                     </div>
                                     <br>
+                                    @endif
                                     @endif
                                     @endisset
                                     <div class="modal-footer">
