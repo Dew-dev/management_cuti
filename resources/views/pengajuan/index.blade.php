@@ -17,6 +17,8 @@
                     </div>
                 </div>
                 <div class="page-inner mt--5">
+
+                    {{-- JIKA ROLE USER MENAMPILKAN ANGKA SISA CUTI DAN BUTTON ADD --}}
                     @if (!Auth::guard('admin')->check() && !Auth::guard('lead')->check())
                     <!-- Button -->
                     @if($count == 0)
@@ -38,7 +40,6 @@
                         <div class="col-md-10 justify-content-center" style="background-color:rgb(13, 156, 13);color:white;padding:10px;border-radius:15px;">
                             <h3 style="margin-left: 3%; margin-bottom:3%"> Sisa Cuti Anda Tahun Ini : <b>{{$count}}</b> </h3>
                         </div>
-
                     </div>
                     @endif
                     <br>
@@ -214,6 +215,7 @@
                 </div>
             </div>
 
+            {{-- MODAL APPROVE --}}
             <div class="modal fade" id="approveModal" role="dialog">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -246,6 +248,7 @@
                 </div>
             </div>
 
+            {{-- MODAL DISAPPROVE --}}
             <div class="modal fade" id="disapproveModal" role="dialog">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -279,15 +282,18 @@
 </body>
 
 <script>
+    // SETUP APPROVE MODAL
     function approve_modal(url, id) {
         $('#url_approve').val(url);
         $('#id_approval').val(id);
 	}
 
+    // SETUP DISAPPROVE MODAL
     function disapprove_modal(url) {
         $('#url_disapprove').val(url);
 	}
 
+    // STORE APPROVE PENGAJUAN
     function approve(){
         let url = $('#url_approve').val();
         let id = $('#id_approval').val();
@@ -323,6 +329,7 @@
 
     }
 
+    // STORE DISAPPROVE PENGAJUAN
     function disapprove(){
         let url = $('#url_disapprove').val();
         let ket = $('#keterangan_pimpinan_disapprove').val();
@@ -350,6 +357,7 @@
 
     }
 
+    // HAPUS PENGAJUAN UNTUK USER
     function destroy(id) {
         var token = $('meta[name="csrf-token"]').attr('content');
 
@@ -371,6 +379,7 @@
     }
 
     $(document).ready(function() {
+        // MENAMPILKAN LAMPIRAN KE IFRAME
         $('#upload_lampiran').change(function(event) {
             const file = event.target.files[0];
             if (file) {
@@ -383,6 +392,7 @@
             }
         });
 
+        // MENAMPILKAN LAMPIRAN KE IFRAME
         function renderPDF(data) {
             const pdfUrl = URL.createObjectURL(new Blob([data], { type: 'application/pdf' }));
             const pdfContainer = $('#pdfContainer');

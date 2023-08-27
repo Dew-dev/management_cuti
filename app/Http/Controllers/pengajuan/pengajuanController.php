@@ -16,72 +16,57 @@ class pengajuanController extends Controller
         $this->middleware('auth');
     }
 
+    // View Menu Utama Cuti
     public function index()
     {
+        date_default_timezone_set("Asia/Bangkok");
         $data['title'] = "Daftar Pengajuan";
+        // Pengecekan Cuti yang di approve
         $pengajuan = pengajuan::where('pemohon_id', Auth::user()->id)->where('status',1)->get();
         $year = date('Y');
         $count = 12;
+        // Pehitungan Cuti Per Tahun
         foreach($pengajuan as $p){
             $tgl = explode(",",$p->tgl_cuti);
-            // dd($tgl);
             foreach($tgl as $tgl){
-                // $jadiTanggal = date($tgl);
                 $tahunCuti= date('Y', strtotime($tgl));
                 if($year == $tahunCuti){
                     $count--;
                 }
-                // dd(date($tgl));
             };
         }
         $data['count'] = $count;
-        // dd(Auth::guard('admin') );
         if (Auth::guard('admin')->check() || Auth::guard('lead')->check()) {
             $data['pengajuan'] = pengajuan::where('deleted_at',null)->orderBy('tgl_cuti', 'desc')->orderBy('status', 'asc')->get();
         } else {
             $data['pengajuan'] = pengajuan::where('pemohon_id', Auth::user()->id)->where('deleted_at',null)->orderBy('tgl_cuti', 'desc')->orderBy('status', 'asc')->get();
         }
 
-        // dd(Auth::user()->id);
         return view('pengajuan.index', $data);
     }
 
     public function countDate($id){
         $data = pengajuan::where('id', $id)->first();
         $diff = date_diff($data->dari,$data->sampai);
-
-        // return
-
     }
 
+    // View Cuti
     public function create()
     {
-
         $data['title'] = "Add Pengajuan";
         $data['url'] = 'store';
         $data['disabled_'] = '';
-        // $data['roles'] = Role::whereNot('id',1)->get();
         return view('pengajuan.create', $data);
     }
 
-    // Store Function to Database
+    // Simpan Pengajuan Cuti
     public function store(Request $request)
     {
-        // $exec = pengajuan::where('email', $request->email)->first();
-        // $exec_3 = pengajuan::where('telpon', $request->phone)->first();
-
-        // if($exec || $exec_3){
-        //     return back()->with(['gagal' => 'Your Email, pengajuanname or Phone Already Exist!']);
-        // }else{
-        // if($request->password == $request->repassword){
         date_default_timezone_set("Asia/Bangkok");
         $datenow = date('Y-m-d H:i:s');
-        // dd(isWeekend());
-        // dd(date('N', strtotime($datenow)) >= 6);
-        // isWeekend($datenow);
+
+        // Input ke database pengajuan
         $sample = pengajuan::create([
-            // 'dari' => $request->from,
-            // 'sampai' => $request->to,
             'tgl_cuti' => $request->from,
             'keterangan' => $request->keterangan,
             'status' => 0,
@@ -94,11 +79,6 @@ class pengajuanController extends Controller
         } else {
             return redirect()->route('user.pengajuan.index')->with(['success' => 'Data berhasil disimpan!']);
         }
-        // }else{
-        //     return back()->with(['gagal' => 'Password Not Match!']);
-        // }
-
-        // }
     }
 
     public function approve($id)
@@ -156,11 +136,11 @@ class pengajuanController extends Controller
 
     }
 
+    // Download File PDF lampiran
     public function downloadPDF($id, $file){
-        //PDF file is stored under project/public/download/info.pdf
         $file="Uploads/Persetujuan/".$file."";
         return Response::download($file);
-}
+    }
 
     // Detail Data View by id
     public function detail($id)
@@ -170,11 +150,10 @@ class pengajuanController extends Controller
         $data['url'] = 'create';
         $data['users'] = pengajuan::where('id', $id)->first();
         $data['hasil'] = pengajuan::where('id', $id)->first();
-        // $data['roles'] = Role::all();
         return view('pengajuan.create', $data);
     }
 
-    // Edit Data View by id
+    // Edit Data Pengajuan View by id
     public function edit($id)
     {
         $data['id'] = $id;
@@ -182,19 +161,16 @@ class pengajuanController extends Controller
         $data['disabled_'] = '';
         $data['url'] = 'update';
         $data['users'] = pengajuan::where('id', $id)->first();
-        // $data['roles'] = Role::all();
         return view('pengajuan.create', $data);
     }
 
-    // Update Function to Database
+    // Update Pengajuan
     public function update(Request $req)
     {
         date_default_timezone_set("Asia/Bangkok");
         $datenow = date('Y-m-d H:i:s');
-        // dd($req->id);
         $user_pay = pengajuan::where('id', $req->id)->update([
             'tgl_cuti' => $req->from,
-            // 'sampai' => $req->to,
             'keterangan' => $req->keterangan,
             'updated_at' => $datenow
         ]);
@@ -207,12 +183,11 @@ class pengajuanController extends Controller
         // }
     }
 
-    // Delete Data Function
+    // Delete Data Pengajuan Function
     public function delete(Request $req)
     {
         $datenow = date('Y-m-d H:i:s');
         $exec = pengajuan::where('id', $req->id)->update([
-            // 'updated_at' => $datenow,
             'deleted_at' => $datenow
         ]);
 

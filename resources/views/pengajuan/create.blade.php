@@ -49,6 +49,8 @@
                                     </div>
                                     <br>
                                     {{-- NEW --}}
+
+                                    {{-- JIKA PENGAJUAN SUDAH DIPROSES --}}
                                     @isset($hasil)
                                     <hr>
                                     <br>
@@ -63,6 +65,8 @@
                                         </div>
                                     </div>
                                     <br>
+
+                                    {{-- JIKA PENGAJUAN DISETUJUI MENAMPILKAN LAMPIRAN --}}
                                     @if($hasil->status == 1)
                                     <div class="row">
                                         <div class="col-md-1"></div>
@@ -85,6 +89,8 @@
                                         </div>
                                     </div>
                                     <br>
+
+                                    {{-- JIKA ROLE USER DAN STATUS DISETUJUI --}}
                                     @if(Auth::guard('user')->check())
                                     @if($hasil->status == 1)
                                     <div class="row">
@@ -101,6 +107,7 @@
                                             <br>
                                             <div class="col-md-12">
                                                 <center>
+                                                    {{-- QR --}}
                                                     <img class="" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ route('user.pengajuan.downloadPDF',['id'=> $hasil->id, 'file'=>$hasil->lampiran_persetujuan]) }}" alt="">
                                                 </center>
                                             </div>
@@ -179,19 +186,17 @@
     $(document).ready(function() {
 
         var holidays =[];
+
+        // GENERATE HARI LIBUR DARI API
         $.get("https://api-harilibur.vercel.app/api", function(data) {
-            // console.log(data);
             var arr = [];
             for (let i = 0; i < data.length; i++) {
-                // let date = new Date(data[i]['holiday_date'])
                 if(data[i]['is_national_holiday'] ==true ){
                     let holidate = data[i]['holiday_date'].split("-");
                     let holiname = data[i]['holiday_name'];
                     holidays.push([holidate[0],holidate[1],holidate[2],holiname]);
                 }
-                // [2020,12,25,'Christmas Day']
             }
-
         })
         function setHolidays(date) {
             for (i = 0; i < holidays.length; i++) {

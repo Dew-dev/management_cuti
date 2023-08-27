@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 
 // ALL CONTROLLERS
-
 Route::get('/', function () {
     if (Auth::guard('admin')->check()) {
         return redirect()->route('admin.pengajuan.index');
@@ -33,6 +32,7 @@ Route::get('/', function () {
     }
 });
 
+// AUTH ROUTE
 Route::namespace('App\Http\Controllers')->group(function () {
 
     Route::namespace('login')->prefix('auth')->name('login.')->group(function () {
@@ -48,18 +48,21 @@ Route::namespace('App\Http\Controllers')->group(function () {
 });
 
 Route::namespace('App\Http\Controllers')->group(function () {
+
+    // LEAD ROUTE
     Route::middleware('auth:lead')->prefix('lead')->name('lead.')->group(function () {
         // ROUTE TO DASHBOARD CONTROLLERS
         Route::namespace('dashboard')->name('dashboard.')->group(function () {
             Route::get('/dashboard', 'DashboardControllers@index')->name('index');
         });
 
-        // ROUTE TO ORDER CONTROLLERS
+        // ROUTE TO USERS CONTROLLERS
         Route::namespace('users')->prefix('users')->name('users.')->group(function () {
             Route::get('edit_profile/{id}', 'UsersControllers@edit_profile')->name('edit_profile');
         Route::post('update', 'UsersControllers@update')->name('update');
         });
 
+        // ROUTE TO PENGAJUAN CUTI
         Route::namespace('pengajuan')->prefix('pengajuan')->name('pengajuan.')->group(function () {
             Route::get('/', 'pengajuanController@index')->name('index');
             Route::get('create', 'pengajuanController@create')->name('create');
@@ -76,14 +79,14 @@ Route::namespace('App\Http\Controllers')->group(function () {
         });
     });
 
+    //ADMIN ROUTE
     Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function () {
         // ROUTE TO DASHBOARD CONTROLLERS
         Route::namespace('dashboard')->name('dashboard.')->group(function () {
             Route::get('/dashboard', 'DashboardControllers@index')->name('index');
         });
 
-        // ROUTE TO ORDER CONTROLLERS
-
+        // ROUTE TO PENGAJUAN CUTI
         Route::namespace('pengajuan')->prefix('pengajuan')->name('pengajuan.')->group(function () {
             Route::get('/', 'pengajuanController@index')->name('index');
             Route::get('create', 'pengajuanController@create')->name('create');
@@ -111,13 +114,16 @@ Route::namespace('App\Http\Controllers')->group(function () {
         });
     });
 
+    // USER ROUTE
     Route::middleware('auth:user')->prefix('user')->name('user.')->group(function () {
 
+        // ROUTE TO USERS CONTROLLERS
         Route::namespace('users')->prefix('users')->name('users.')->group(function () {
             Route::get('edit_profile/{id}', 'UsersControllers@edit_profile')->name('edit_profile');
             Route::post('update', 'UsersControllers@update')->name('update');
         });
 
+        // ROUTE TO PENGAJUAN CUTI
         Route::namespace('pengajuan')->prefix('pengajuan')->name('pengajuan.')->group(function () {
             Route::get('/', 'pengajuanController@index')->name('index');
             Route::get('create', 'pengajuanController@create')->name('create');
