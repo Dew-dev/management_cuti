@@ -139,5 +139,8 @@ Route::namespace('App\Http\Controllers')->group(function () {
         });
     });
 
-    Route::get('user/pengajuan/downloadpdf/{id}/{file}', 'pengajuanController@downloadPDF')->name('user.pengajuan.downloadPDF');
+    Route::namespace('pengajuan')->group(function () {
+        Route::get('user/pengajuan/downloadpdf/{id}/{file}', 'pengajuanController@downloadPDF')->name('user.pengajuan.downloadPDF');
+    });
+    
 });
