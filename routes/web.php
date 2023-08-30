@@ -128,7 +128,6 @@ Route::namespace('App\Http\Controllers')->group(function () {
             Route::get('/', 'pengajuanController@index')->name('index');
             Route::get('create', 'pengajuanController@create')->name('create');
             Route::post('store', 'pengajuanController@store')->name('store');
-            Route::get('downloadpdf/{id}/{file}', 'pengajuanController@downloadPDF')->name('downloadPDF');
             Route::get('detail/{id}', 'pengajuanController@detail')->name('detail');
             Route::get('edit/{id}', 'pengajuanController@edit')->name('edit');
             Route::post('update', 'pengajuanController@update')->name('update');
@@ -139,4 +138,6 @@ Route::namespace('App\Http\Controllers')->group(function () {
             Route::post('export', 'pengajuanController@export')->name('export');
         });
     });
+
+    Route::get('user/pengajuan/downloadpdf/{id}/{file}', 'pengajuanController@downloadPDF')->name('user.pengajuan.downloadPDF');
 });
