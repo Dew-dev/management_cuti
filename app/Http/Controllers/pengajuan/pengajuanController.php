@@ -13,7 +13,7 @@ class pengajuanController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('downloadPDF');
     }
 
     // View Menu Utama Cuti
